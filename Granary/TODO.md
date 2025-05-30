@@ -15,7 +15,7 @@ Inventory tracking, invoice processing, variance reporting, recipe management ap
  In other words, we know better now what our database should look like, so let's fix it
  Then we can move on to adding functionality and making things work nicer
  On top of that, we have to start version control, right now, for tons of reasons
-- [ ] Get on GitHub, establish version control, and start committing code
+- [x] Get on GitHub, establish version control, and start committing code
 - [ ] Resolve issue with Product, Supplier, and ProductSupplier models
 - [ ] Add attributes to other models as necessary - we have a good scaffold, build it out
 - [ ] Make sure to update configuration file seed data, views, controllers, etc.
@@ -64,7 +64,7 @@ Inventory tracking, invoice processing, variance reporting, recipe management ap
 - [ ] Repositories
 - [ ] Query builders
 - [ ] Select lists populated from database
-- [ ] Get on github and start version controlling and committing
+- [x] Get on github and start version controlling and committing
 - [ ] Look into Copilot - I think there's a full agent available - Github Models Hub?
 
 
