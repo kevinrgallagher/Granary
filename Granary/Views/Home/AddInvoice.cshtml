@@ -1,0 +1,46 @@
+﻿@*
+ * ----------------------------------------------------------------------------
+ * Module Name: Add Invoice View
+ * Module Description: The view for adding an invoice. An invoice contains many
+ * line items, each of which is an instance of the InvoiceProduct model.
+ * ----------------------------------------------------------------------------
+*@
+
+@model Invoice
+@{
+    ViewData["Title"] = "Add Invoice";
+}
+
+@* Heading *@
+<div class="row mb-2">
+    <h5>Add Invoice</h5>
+</div>
+
+@* Input Form*@
+<form asp-action="AddInvoice" asp-controller="Home" method="post">
+    <div class="row mb-3">
+        <label asp-for="SupplierId" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="SupplierId" class="form-control" />
+            <span asp-validation-for="SupplierId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label asp-for="InvoiceDate" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="InvoiceDate" class="form-control" />
+            <span asp-validation-for="InvoiceDate" class="text-danger"></span>
+        </div>
+    </div>
+    
+    @* Add and Cancel Buttons *@
+    <div class="row mt-3">
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Add Invoice</button>
+        </div>
+        <div class="col-auto">
+            <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Cancel</a>
+        </div>
+    </div>
+</form>
+

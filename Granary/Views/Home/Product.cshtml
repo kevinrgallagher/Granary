@@ -1,0 +1,49 @@
+﻿@*
+ * ----------------------------------------------------------------------------
+ * Module Name: Product Management View
+ * Module Description: The view for displaying product types within the DB.
+ * This view displays a list of products and their properties. From here, the 
+ * user can add, delete, and modify products.
+ * ----------------------------------------------------------------------------
+*@
+
+@model List<Product>
+
+@{
+    ViewData["Title"] = "Product";
+}
+
+@* Heading *@
+<div class="row mb-2">
+    <h5>Product</h5>
+</div>
+
+<table class="table table-striped table-sm">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>ProductID</th>
+            <th>Name</th>
+            <th>UnitType</th>
+            <th>UnitPrice</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.ProductId</td>
+                <td>@product.Name</td>
+                <td>@product.UnitType</td>
+                <td>@product.UnitPrice</td>
+                <td>@product.Description</td>
+                <td>@product.Category</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="row">
+	<div class="col-md-12">
+		<a asp-action="AddProduct" class="btn btn-primary" method="post">Add Product</a>
+	</div>
+</div>

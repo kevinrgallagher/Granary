@@ -1,0 +1,45 @@
+﻿@*
+ * ----------------------------------------------------------------------------
+ * Module Name: Invoice Management View
+ * Module Description: The view for displaying invoices and their details.
+ * This view displays a list of invoices and their associated line items.
+ * The line items are derived from the InvoiceProduct model. This view allows
+ * the user to view, add, modify, and delete invoices.
+ * ----------------------------------------------------------------------------
+*@
+
+@model List<Invoice>
+
+@{
+    ViewData["Title"] = "Invoice";
+}
+
+@* Heading *@
+<div class="row mb-2">
+    <h5>Invoice</h5>
+</div>
+
+<table class="table table-striped table-sm">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>InvoiceId</th>
+            <th>SupplierId</th>
+            <th>InvoiceDate</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var invoice in Model)
+        {
+            <tr>
+                <td>@invoice.InvoiceId</td>
+                <td>@invoice.SupplierId</td>
+                <td>@invoice.InvoiceDate</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="row">
+    <div class="col-md-12">
+        <a asp-action="AddInvoice" class="btn btn-primary" method="post">Add Invoice</a>
+    </div>
+</div>

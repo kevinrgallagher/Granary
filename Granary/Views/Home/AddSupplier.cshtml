@@ -1,0 +1,41 @@
+﻿@*
+ * ----------------------------------------------------------------------------
+ * Module Name: Add Supplier View
+ * Module Description: The view for adding a supplier. A supplier can deliver
+ * zero or many products extant within the inventory. Different suppliers can
+ * deliver the same product. Any product with the same name and unit type is
+ * given a unique ID and is the same product, even if from different suppliers.
+ * ----------------------------------------------------------------------------
+*@
+
+@model Supplier
+@{
+    ViewData["Title"] = "Add Supplier";
+}
+
+@* Heading *@
+<div class="row mb-2">
+    <h5>Add Supplier</h5>
+</div>
+
+@* Input Form*@
+<form asp-action="AddSupplier" asp-controller="Home" method="post">
+    <div class="row mb-3">
+        <label asp-for="SupplierName" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="SupplierName" class="form-control" />
+            <span asp-validation-for="SupplierName" class="text-danger"></span>
+        </div>
+    </div>
+    
+    @* Add and Cancel Buttons *@
+    <div class="row mt-3">
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Add Supplier</button>
+        </div>
+        <div class="col-auto">
+            <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Cancel</a>
+        </div>
+    </div>
+</form>
+
