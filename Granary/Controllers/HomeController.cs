@@ -1,5 +1,6 @@
 using Granary.Models.DataLayer;
 using Granary.Models.DomainModels;
+using Granary.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Granary.Controllers;
@@ -14,11 +15,39 @@ public class HomeController : Controller
         return View();
     }
 
+    // Navigate to Inventory page
+    public IActionResult Inventory()
+    {
+        // Using inventory view model for formatting and calculations
+        var inventory = context.Products
+            .Select(p => new InventoryViewModel
+            {
+                ProductId = p.ProductId,
+                Name = p.Name,
+                UnitType = p.UnitType,
+                UnitPrice = p.UnitPrice,
+                StockQuantity = p.StockQuantity
+            })
+            .ToList();
+        return View(inventory);
+    }
+
     // Navigate to Product page
     public IActionResult Product()
     {
-        var products = context.Products.ToList();
-        return View(products);
+        // Using product view model for formatting and calculations
+        var product = context.Products
+            .Select(p => new ProductViewModel
+            {
+                ProductId = p.ProductId,
+                Name = p.Name,
+                UnitType = p.UnitType,
+                UnitPrice = p.UnitPrice,
+                Description = p.Description,
+                CategoryId = p.CategoryId
+            })
+            .ToList();
+        return View(product);
     }
 
     // Navigate to Supplier page

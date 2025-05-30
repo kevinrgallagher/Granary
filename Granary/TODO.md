@@ -44,6 +44,9 @@ Inventory tracking, invoice processing, variance reporting, recipe management ap
 - [x] Built out the Product view, wired nav link, need to add action method to controller for submission
 - [x] Product, invoice, recipe, supplier views now display a list of items
 - [x] Implemented views and controllers for adding products, invoices, recipes, and suppliers
+- [x] Index view should become a welcome page, build out Inventory view to display product counts/values
+- [x] Inventory view changes, added viewmodel for formatting data and removing trailing zeroes
+- [x] Product view changes, added viewmodel for formatting data and removing trailing zeroes
 - [ ] Add some basic validation
 - [ ] Name properties for models should be made consistent, either 'Name' or 'SupplierName' for instance
 - [ ] AddProduct view category selectlist should be populated from category model
@@ -53,7 +56,9 @@ Inventory tracking, invoice processing, variance reporting, recipe management ap
 - [ ] AddInvoice view should have a select list for suppliers
 - [ ] Implement views for updating products, suppliers, invoices, recipes
 - [ ] Implement buttons for deleting products, suppliers, invoices, recipes
-- [ ] Index view should become a welcome page, build out Inventory view to display product counts/values
+
+
+- [ ] Product and inventory views should display category name, not Id
 
 
 # REVIEW MATERIAL

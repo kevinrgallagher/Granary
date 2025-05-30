@@ -1,8 +1,46 @@
-﻿@{
+﻿@*
+ * ----------------------------------------------------------------------------
+ * Module Name: Inventory Management View
+ * Module Description: The view for displaying inventory and cost totals.
+ * This view displays a list of products and their properties. Additional
+ * columns are included in the list, such as total value. This view will
+ * eventually include a variance report and historical data.
+ * ----------------------------------------------------------------------------
+*@
+
+@model List<InventoryViewModel>
+
+@{
     ViewData["Title"] = "Inventory";
 }
 
-<h1>Inventory</h1>
+@* Heading *@
+<div class="row mb-2">
+    <h5>Inventory</h5>
+</div>
 
-<p>Welcome to the Inventory section!</p>
-
+<table class="table table-striped table-sm">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>ProductID</th>
+            <th>Name</th>
+            <th>UnitType</th>
+            <th>Stock Quantity</th>
+            <th>UnitPrice</th>
+            <th>Total Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.ProductId</td>
+                <td>@product.Name</td>
+                <td>@product.UnitType</td>
+                <td>@product.FormattedStockQuantity</td>
+                <td>@product.FormattedUnitPrice</td>
+                <td>@product.FormattedTotalValue</td>
+            </tr>
+        }
+    </tbody>
+</table>

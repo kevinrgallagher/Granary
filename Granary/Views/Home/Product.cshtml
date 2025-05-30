@@ -7,7 +7,7 @@
  * ----------------------------------------------------------------------------
 *@
 
-@model List<Product>
+@model List<ProductViewModel>
 
 @{
     ViewData["Title"] = "Product";
@@ -26,6 +26,7 @@
             <th>UnitType</th>
             <th>UnitPrice</th>
             <th>Description</th>
+            <th>CategoryId</th>
         </tr>
     </thead>
     <tbody>
@@ -35,9 +36,9 @@
                 <td>@product.ProductId</td>
                 <td>@product.Name</td>
                 <td>@product.UnitType</td>
-                <td>@product.UnitPrice</td>
+                <td>@product.FormattedUnitPrice</td>
                 <td>@product.Description</td>
-                <td>@product.Category</td>
+                <td>@product.CategoryId</td>
             </tr>
         }
     </tbody>
