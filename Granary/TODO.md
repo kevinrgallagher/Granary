@@ -56,8 +56,6 @@ Inventory tracking, invoice processing, variance reporting, recipe management ap
 - [ ] AddInvoice view should have a select list for suppliers
 - [ ] Implement views for updating products, suppliers, invoices, recipes
 - [ ] Implement buttons for deleting products, suppliers, invoices, recipes
-
-
 - [ ] Product and inventory views should display category name, not Id
 
 
