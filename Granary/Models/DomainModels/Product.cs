@@ -4,7 +4,7 @@ public class Product
 {
     public int ProductId { get; set; } // Primary key, foreign key to the three join tables
     public int CategoryId { get; set; } // Foreign key to Category
-    public string Name { get; set; } = string.Empty;
+    public string ProductName { get; set; } = string.Empty;
     public string UnitType { get; set; } = string.Empty;
     public decimal UnitPrice { get; set; } = 0.0m;
     public decimal StockQuantity { get; set; }

@@ -23,7 +23,7 @@ public class HomeController : Controller
             .Select(p => new InventoryViewModel
             {
                 ProductId = p.ProductId,
-                Name = p.Name,
+                Name = p.ProductName,
                 UnitType = p.UnitType,
                 UnitPrice = p.UnitPrice,
                 StockQuantity = p.StockQuantity
@@ -40,7 +40,7 @@ public class HomeController : Controller
             .Select(p => new ProductViewModel
             {
                 ProductId = p.ProductId,
-                Name = p.Name,
+                Name = p.ProductName,
                 UnitType = p.UnitType,
                 UnitPrice = p.UnitPrice,
                 Description = p.Description,
@@ -104,7 +104,7 @@ public class HomeController : Controller
             var prod = new Product
             {
                 CategoryId = product.CategoryId,
-                Name = product.Name,
+                ProductName = product.ProductName,
                 UnitType = product.UnitType,
                 UnitPrice = product.UnitPrice,
                 StockQuantity = product.StockQuantity,
@@ -181,7 +181,7 @@ public class HomeController : Controller
             var rec = new Recipe
             {
                 RecipeId = recipe.RecipeId,
-                Name = recipe.Name,
+                RecipeName = recipe.RecipeName,
                 Description = recipe.Description
             };
 

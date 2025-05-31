@@ -12,25 +12,25 @@ public class ConfigureRecipes : IEntityTypeConfiguration<Recipe>
             new Recipe
             {
                 RecipeId = 1,
-                Name = "Tomato Soup",
+                RecipeName = "Tomato Soup",
                 Description = "A warm and savory soup made from fresh tomatoes and onions."
             },
             new Recipe
             {
                 RecipeId = 2,
-                Name = "Stuffed Mushrooms",
+                RecipeName = "Stuffed Mushrooms",
                 Description = "Mushroom caps filled with a savory onion and herb blend."
             },
             new Recipe
             {
                 RecipeId = 3,
-                Name = "Marinara Sauce",
+                RecipeName = "Marinara Sauce",
                 Description = "A classic Italian-style tomato and mushroom sauce."
             },
             new Recipe
             {
                 RecipeId = 4,
-                Name = "Onion Salad",
+                RecipeName = "Onion Salad",
                 Description = "A fresh salad combining red and yellow onions with cherry tomatoes."
             }
         );

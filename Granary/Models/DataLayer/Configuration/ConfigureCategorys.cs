@@ -12,19 +12,19 @@ internal class ConfigureCategories : IEntityTypeConfiguration<Category>
             new Category
             {
                 CategoryId = 1,
-                Name = "Tomatoes",
+                CategoryName = "Tomatoes",
                 Description = "Includes all tomato varieties like Roma, Cherry, and Beefsteak."
             },
             new Category
             {
                 CategoryId = 2,
-                Name = "Mushrooms",
+                CategoryName = "Mushrooms",
                 Description = "Covers common edible mushrooms such as White, Portobello, and Shiitake."
             },
             new Category
             {
                 CategoryId = 3,
-                Name = "Onions",
+                CategoryName = "Onions",
                 Description = "Includes Yellow, Red, Sweet, and specialty onions like Cippolini."
             }
         );

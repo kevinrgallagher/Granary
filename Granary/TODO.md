@@ -47,11 +47,11 @@ Inventory tracking, invoice processing, variance reporting, recipe management ap
 - [x] Index view should become a welcome page, build out Inventory view to display product counts/values
 - [x] Inventory view changes, added viewmodel for formatting data and removing trailing zeroes
 - [x] Product view changes, added viewmodel for formatting data and removing trailing zeroes
+- [x] Supplier model should contain more properties such as contact info, address, etc.
+- [x] Name properties for models should be made consistent, either 'Name' or 'SupplierName' for instance
 - [ ] Add some basic validation
-- [ ] Name properties for models should be made consistent, either 'Name' or 'SupplierName' for instance
 - [ ] AddProduct view category selectlist should be populated from category model
 - [ ] AddProduct view unit type selectlist should be populated somehow, not hard-coded, new model maybe
-- [ ] Supplier model should contain more properties such as contact info, address, etc.
 - [ ] Invoice model should contain more properties such as issue number, due date, etc.
 - [ ] AddInvoice view should have a select list for suppliers
 - [ ] Implement views for updating products, suppliers, invoices, recipes
