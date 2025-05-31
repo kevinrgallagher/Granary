@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Granary.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstTry : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -47,7 +47,10 @@ namespace Granary.Migrations
                 {
                     SupplierId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SupplierName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    SupplierName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContactName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContactEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContactPhone = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -195,14 +198,14 @@ namespace Granary.Migrations
 
             migrationBuilder.InsertData(
                 table: "Suppliers",
-                columns: new[] { "SupplierId", "SupplierName" },
+                columns: new[] { "SupplierId", "ContactEmail", "ContactName", "ContactPhone", "SupplierName" },
                 values: new object[,]
                 {
-                    { 1, "Fresh Farms Co." },
-                    { 2, "Harvest Supply Ltd." },
-                    { 3, "Mushroom Masters" },
-                    { 4, "Tomato Town Inc." },
-                    { 5, "Onion Bros." }
+                    { 1, "lena@freshfarms.com", "Lena Ortiz", "555-101-0001", "Fresh Farms Co." },
+                    { 2, "marcus@harvestsupply.com", "Marcus Liu", "555-101-0002", "Harvest Supply Ltd." },
+                    { 3, "jill@mushroommasters.com", "Jill Tanaka", "555-101-0003", "Mushroom Masters" },
+                    { 4, "rick@tomatotown.com", "Rick Valenti", "555-101-0004", "Tomato Town Inc." },
+                    { 5, "nina@onionbros.com", "Nina Patel", "555-101-0005", "Onion Bros." }
                 });
 
             migrationBuilder.InsertData(

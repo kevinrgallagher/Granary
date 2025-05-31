@@ -131,7 +131,10 @@ public class HomeController : Controller
             var sup = new Supplier
             {
                 SupplierId = supplier.SupplierId,
-                SupplierName = supplier.SupplierName
+                SupplierName = supplier.SupplierName,
+                ContactName = supplier.ContactName,
+                ContactEmail = supplier.ContactEmail,
+                ContactPhone = supplier.ContactPhone
             };
 
             context.Suppliers.Add(sup);
