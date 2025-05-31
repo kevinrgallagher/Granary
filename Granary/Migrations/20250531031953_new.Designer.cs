@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Granary.Migrations
 {
     [DbContext(typeof(GranaryContext))]
-    [Migration("20250531025230_Initial")]
-    partial class Initial
+    [Migration("20250531031953_new")]
+    partial class @new
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,11 +33,11 @@ namespace Granary.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
 
-                    b.Property<string>("Description")
+                    b.Property<string>("CategoryName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -49,20 +49,20 @@ namespace Granary.Migrations
                         new
                         {
                             CategoryId = 1,
-                            Description = "Includes all tomato varieties like Roma, Cherry, and Beefsteak.",
-                            Name = "Tomatoes"
+                            CategoryName = "Tomatoes",
+                            Description = "Includes all tomato varieties like Roma, Cherry, and Beefsteak."
                         },
                         new
                         {
                             CategoryId = 2,
-                            Description = "Covers common edible mushrooms such as White, Portobello, and Shiitake.",
-                            Name = "Mushrooms"
+                            CategoryName = "Mushrooms",
+                            Description = "Covers common edible mushrooms such as White, Portobello, and Shiitake."
                         },
                         new
                         {
                             CategoryId = 3,
-                            Description = "Includes Yellow, Red, Sweet, and specialty onions like Cippolini.",
-                            Name = "Onions"
+                            CategoryName = "Onions",
+                            Description = "Includes Yellow, Red, Sweet, and specialty onions like Cippolini."
                         });
                 });
 
@@ -74,8 +74,19 @@ namespace Granary.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InvoiceId"));
 
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("InvoiceDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("InvoiceNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SupplierId")
                         .HasColumnType("int");
@@ -90,31 +101,46 @@ namespace Granary.Migrations
                         new
                         {
                             InvoiceId = 1,
+                            DueDate = new DateTime(2024, 12, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             InvoiceDate = new DateTime(2024, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InvoiceNumber = "INV-1001",
+                            Status = "Pending",
                             SupplierId = 1
                         },
                         new
                         {
                             InvoiceId = 2,
+                            DueDate = new DateTime(2025, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             InvoiceDate = new DateTime(2024, 12, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InvoiceNumber = "INV-1002",
+                            Status = "Paid",
                             SupplierId = 2
                         },
                         new
                         {
                             InvoiceId = 3,
+                            DueDate = new DateTime(2025, 2, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             InvoiceDate = new DateTime(2025, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InvoiceNumber = "INV-1003",
+                            Status = "Pending",
                             SupplierId = 3
                         },
                         new
                         {
                             InvoiceId = 4,
+                            DueDate = new DateTime(2025, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             InvoiceDate = new DateTime(2025, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InvoiceNumber = "INV-1004",
+                            Status = "Overdue",
                             SupplierId = 4
                         },
                         new
                         {
                             InvoiceId = 5,
+                            DueDate = new DateTime(2025, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             InvoiceDate = new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InvoiceNumber = "INV-1005",
+                            Status = "Paid",
                             SupplierId = 5
                         });
                 });
@@ -214,7 +240,7 @@ namespace Granary.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("ProductName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -240,7 +266,7 @@ namespace Granary.Migrations
                             ProductId = 1,
                             CategoryId = 1,
                             Description = "Small sweet tomatoes",
-                            Name = "Cherry Tomatoes",
+                            ProductName = "Cherry Tomatoes",
                             StockQuantity = 100m,
                             UnitPrice = 2.99m,
                             UnitType = "each"
@@ -250,7 +276,7 @@ namespace Granary.Migrations
                             ProductId = 2,
                             CategoryId = 1,
                             Description = "Ideal for sauces",
-                            Name = "Roma Tomatoes",
+                            ProductName = "Roma Tomatoes",
                             StockQuantity = 200m,
                             UnitPrice = 1.49m,
                             UnitType = "pound"
@@ -260,7 +286,7 @@ namespace Granary.Migrations
                             ProductId = 3,
                             CategoryId = 1,
                             Description = "Large slicing tomato",
-                            Name = "Beefsteak Tomatoes",
+                            ProductName = "Beefsteak Tomatoes",
                             StockQuantity = 150m,
                             UnitPrice = 1.25m,
                             UnitType = "each"
@@ -270,7 +296,7 @@ namespace Granary.Migrations
                             ProductId = 4,
                             CategoryId = 2,
                             Description = "Mild and versatile",
-                            Name = "White Mushrooms",
+                            ProductName = "White Mushrooms",
                             StockQuantity = 80m,
                             UnitPrice = 3.25m,
                             UnitType = "pound"
@@ -280,7 +306,7 @@ namespace Granary.Migrations
                             ProductId = 5,
                             CategoryId = 2,
                             Description = "Meaty texture, great grilled",
-                            Name = "Portobello Mushrooms",
+                            ProductName = "Portobello Mushrooms",
                             StockQuantity = 60m,
                             UnitPrice = 1.99m,
                             UnitType = "each"
@@ -290,7 +316,7 @@ namespace Granary.Migrations
                             ProductId = 6,
                             CategoryId = 2,
                             Description = "Savory and rich flavor",
-                            Name = "Shiitake Mushrooms",
+                            ProductName = "Shiitake Mushrooms",
                             StockQuantity = 300m,
                             UnitPrice = 0.75m,
                             UnitType = "ounce"
@@ -300,7 +326,7 @@ namespace Granary.Migrations
                             ProductId = 7,
                             CategoryId = 3,
                             Description = "Common all-purpose onion",
-                            Name = "Yellow Onions",
+                            ProductName = "Yellow Onions",
                             StockQuantity = 500m,
                             UnitPrice = 0.89m,
                             UnitType = "pound"
@@ -310,7 +336,7 @@ namespace Granary.Migrations
                             ProductId = 8,
                             CategoryId = 3,
                             Description = "Colorful and sharp",
-                            Name = "Red Onions",
+                            ProductName = "Red Onions",
                             StockQuantity = 400m,
                             UnitPrice = 1.10m,
                             UnitType = "pound"
@@ -320,7 +346,7 @@ namespace Granary.Migrations
                             ProductId = 9,
                             CategoryId = 3,
                             Description = "Mild and sweet",
-                            Name = "Sweet Onions",
+                            ProductName = "Sweet Onions",
                             StockQuantity = 350m,
                             UnitPrice = 1.30m,
                             UnitType = "pound"
@@ -330,7 +356,7 @@ namespace Granary.Migrations
                             ProductId = 10,
                             CategoryId = 3,
                             Description = "Small and sweet, ideal for roasting",
-                            Name = "Cippolini Onions",
+                            ProductName = "Cippolini Onions",
                             StockQuantity = 250m,
                             UnitPrice = 0.60m,
                             UnitType = "each"
@@ -349,7 +375,7 @@ namespace Granary.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("RecipeName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -362,25 +388,25 @@ namespace Granary.Migrations
                         {
                             RecipeId = 1,
                             Description = "A warm and savory soup made from fresh tomatoes and onions.",
-                            Name = "Tomato Soup"
+                            RecipeName = "Tomato Soup"
                         },
                         new
                         {
                             RecipeId = 2,
                             Description = "Mushroom caps filled with a savory onion and herb blend.",
-                            Name = "Stuffed Mushrooms"
+                            RecipeName = "Stuffed Mushrooms"
                         },
                         new
                         {
                             RecipeId = 3,
                             Description = "A classic Italian-style tomato and mushroom sauce.",
-                            Name = "Marinara Sauce"
+                            RecipeName = "Marinara Sauce"
                         },
                         new
                         {
                             RecipeId = 4,
                             Description = "A fresh salad combining red and yellow onions with cherry tomatoes.",
-                            Name = "Onion Salad"
+                            RecipeName = "Onion Salad"
                         });
                 });
 

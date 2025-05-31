@@ -25,6 +25,9 @@
             <th>InvoiceId</th>
             <th>SupplierId</th>
             <th>InvoiceDate</th>
+            <th>InvoiceNumber</th>
+            <th>DueDate</th>
+            <th>Status</th>
         </tr>
     </thead>
     <tbody>
@@ -33,7 +36,10 @@
             <tr>
                 <td>@invoice.InvoiceId</td>
                 <td>@invoice.SupplierId</td>
-                <td>@invoice.InvoiceDate</td>
+                <td>@invoice.InvoiceNumber</td>
+                <td>@invoice.InvoiceDate.ToString("MM/dd/yyyy")</td>
+                <td>@invoice.DueDate.ToString("MM/dd/yyyy")</td>
+                <td>@invoice.Status</td>
             </tr>
         }
     </tbody>

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Granary.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class @new : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +19,7 @@ namespace Granary.Migrations
                 {
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -33,7 +33,7 @@ namespace Granary.Migrations
                 {
                     RecipeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RecipeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -64,7 +64,7 @@ namespace Granary.Migrations
                     ProductId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UnitType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     StockQuantity = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
@@ -88,7 +88,10 @@ namespace Granary.Migrations
                     InvoiceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SupplierId = table.Column<int>(type: "int", nullable: false),
-                    InvoiceDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    InvoiceNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InvoiceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -177,17 +180,17 @@ namespace Granary.Migrations
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "CategoryId", "Description", "Name" },
+                columns: new[] { "CategoryId", "CategoryName", "Description" },
                 values: new object[,]
                 {
-                    { 1, "Includes all tomato varieties like Roma, Cherry, and Beefsteak.", "Tomatoes" },
-                    { 2, "Covers common edible mushrooms such as White, Portobello, and Shiitake.", "Mushrooms" },
-                    { 3, "Includes Yellow, Red, Sweet, and specialty onions like Cippolini.", "Onions" }
+                    { 1, "Tomatoes", "Includes all tomato varieties like Roma, Cherry, and Beefsteak." },
+                    { 2, "Mushrooms", "Covers common edible mushrooms such as White, Portobello, and Shiitake." },
+                    { 3, "Onions", "Includes Yellow, Red, Sweet, and specialty onions like Cippolini." }
                 });
 
             migrationBuilder.InsertData(
                 table: "Recipes",
-                columns: new[] { "RecipeId", "Description", "Name" },
+                columns: new[] { "RecipeId", "Description", "RecipeName" },
                 values: new object[,]
                 {
                     { 1, "A warm and savory soup made from fresh tomatoes and onions.", "Tomato Soup" },
@@ -210,19 +213,19 @@ namespace Granary.Migrations
 
             migrationBuilder.InsertData(
                 table: "Invoices",
-                columns: new[] { "InvoiceId", "InvoiceDate", "SupplierId" },
+                columns: new[] { "InvoiceId", "DueDate", "InvoiceDate", "InvoiceNumber", "Status", "SupplierId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 2, new DateTime(2024, 12, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 },
-                    { 3, new DateTime(2025, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 },
-                    { 4, new DateTime(2025, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 4 },
-                    { 5, new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 5 }
+                    { 1, new DateTime(2024, 12, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "INV-1001", "Pending", 1 },
+                    { 2, new DateTime(2025, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 12, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "INV-1002", "Paid", 2 },
+                    { 3, new DateTime(2025, 2, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "INV-1003", "Pending", 3 },
+                    { 4, new DateTime(2025, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "INV-1004", "Overdue", 4 },
+                    { 5, new DateTime(2025, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "INV-1005", "Paid", 5 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductId", "CategoryId", "Description", "Name", "StockQuantity", "UnitPrice", "UnitType" },
+                columns: new[] { "ProductId", "CategoryId", "Description", "ProductName", "StockQuantity", "UnitPrice", "UnitType" },
                 values: new object[,]
                 {
                     { 1, 1, "Small sweet tomatoes", "Cherry Tomatoes", 100m, 2.99m, "each" },

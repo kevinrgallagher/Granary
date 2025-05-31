@@ -158,7 +158,10 @@ public class HomeController : Controller
             {
                 InvoiceId = invoice.InvoiceId,
                 SupplierId = invoice.SupplierId,
-                InvoiceDate = invoice.InvoiceDate
+                InvoiceNumber = invoice.InvoiceNumber,
+                InvoiceDate = invoice.InvoiceDate,
+                DueDate = invoice.DueDate,
+                Status = invoice.Status,
             };
 
             context.Invoices.Add(inv);
