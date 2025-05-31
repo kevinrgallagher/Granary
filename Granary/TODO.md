@@ -51,7 +51,8 @@ Inventory tracking, invoice processing, variance reporting, recipe management ap
 - [x] Invoice model should contain more properties such as issue number, due date, etc.
 - [x] Fix datetime format on invoice list and addinvoice form 
 - [x] Name properties for models should be made consistent, either 'Name' or 'SupplierName' for instance
-- [ ] Add some basic validation
+- [x] Added required tags to all attributes for all models 
+- [x] Add more validation
 - [ ] AddProduct view category selectlist should be populated from category model
 - [ ] AddProduct view unit type selectlist should be populated somehow, not hard-coded, new model maybe
 - [ ] AddInvoice view should have a select list for suppliers
@@ -77,7 +78,7 @@ Inventory tracking, invoice processing, variance reporting, recipe management ap
 - [x] Add seed data to dbcontext
 - [x] Configuration files for each model
 - [ ] Remove cascading delete for certain models
-- [ ] Account for historical data in database
+- [ ] Consider storing historical data
 - [x] Addproduct, recipe, invoice, supplier, category should be pop-up pages instead of embedded in view
 - [ ] Separate HomeController into separate controllers for each view
 - [ ] Remove IDs from the displayed tables, but leave for now for ease of development
