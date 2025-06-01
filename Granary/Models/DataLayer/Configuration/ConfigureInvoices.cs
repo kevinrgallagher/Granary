@@ -8,6 +8,21 @@ public class ConfigureInvoices : IEntityTypeConfiguration<Invoice>
 {
     public void Configure(EntityTypeBuilder<Invoice> entity)
     {
+        // Establish required relationship between supplier and invoice, cannot delete supplier if invoice exists 
+        entity.HasOne(i => i.Supplier)
+              .WithMany(s => s.Invoices)
+              .HasForeignKey(i => i.SupplierId)
+              .IsRequired()
+              .OnDelete(DeleteBehavior.Restrict);
+
+        // Establish required relationship between supplier and invoice, deleting invoice deletes invoice products
+        entity.HasMany(i => i.InvoiceProducts)
+              .WithOne(ip => ip.Invoice)
+              .HasForeignKey(ip => ip.InvoiceId)
+              .IsRequired()
+              .OnDelete(DeleteBehavior.Cascade);
+
+        // Seed data
         entity.HasData(
             new Invoice
             {

@@ -8,6 +8,9 @@ public class InventoryViewModel
     public decimal UnitPrice { get; set; }
     public decimal StockQuantity { get; set; }
 
+    // For populating product list UI with category name
+    public string CategoryName { get; set; } = string.Empty;
+
     // Calculated field for total value of product in inventory
     public decimal TotalValue => UnitPrice * StockQuantity;
 

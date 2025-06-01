@@ -8,6 +8,12 @@ internal class ConfigureCategories : IEntityTypeConfiguration<Category>
 {
     public void Configure(EntityTypeBuilder<Category> entity)
     {
+        // Establish required relationship between category and product
+        entity.HasMany(c => c.Products)
+            .WithOne(p => p.Category)
+            .HasForeignKey(p => p.CategoryId)
+            .IsRequired();
+
         entity.HasData(
             new Category
             {

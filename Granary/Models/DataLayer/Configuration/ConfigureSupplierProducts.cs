@@ -11,6 +11,20 @@ public class ConfigureSupplierProducts : IEntityTypeConfiguration<SupplierProduc
         // Define composite primary key
         entity.HasKey(sp => new { sp.SupplierId, sp.ProductId });
 
+        // Establish required relationship between supplier product and supplier, cannot delete supplier if supplier products exist
+        entity.HasOne(sp => sp.Supplier)
+              .WithMany(s => s.SupplierProducts)
+              .HasForeignKey(sp => sp.SupplierId)
+              .IsRequired()
+              .OnDelete(DeleteBehavior.Restrict);
+
+        // Establish required relationship between supplier product and product, cannot delete product if supplier products exist
+        entity.HasOne(sp => sp.Product)
+              .WithMany(p => p.SupplierProducts)
+              .HasForeignKey(sp => sp.ProductId)
+              .IsRequired()
+              .OnDelete(DeleteBehavior.Restrict);
+
         entity.HasData(
             new SupplierProduct { SupplierId = 1, ProductId = 1 },
             new SupplierProduct { SupplierId = 1, ProductId = 2 },

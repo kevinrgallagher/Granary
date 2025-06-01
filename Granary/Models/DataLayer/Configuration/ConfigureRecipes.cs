@@ -8,6 +8,13 @@ public class ConfigureRecipes : IEntityTypeConfiguration<Recipe>
 {
     public void Configure(EntityTypeBuilder<Recipe> entity)
     {
+        // Establish required relationship between recipe and recipe products, deleting recipe deletes recipe products
+        entity.HasMany(r => r.RecipeProducts)
+            .WithOne(rp => rp.Recipe)
+            .HasForeignKey(rp => rp.RecipeId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Cascade);
+
         entity.HasData(
             new Recipe
             {

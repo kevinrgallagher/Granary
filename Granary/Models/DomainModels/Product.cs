@@ -28,6 +28,6 @@ public class Product
     public ICollection<SupplierProduct>? SupplierProducts { get; set; } // Navigation property for SupplierProducts
     public ICollection<InvoiceProduct>? InvoiceProducts { get; set; } // Navigation property for InvoiceProducts
     public ICollection<RecipeProduct>? RecipeProducts { get; set; } // Navigation property for RecipeProducts
-    public Category? Category { get; set; } // Navigation property for Category
+    public Category Category { get; set; } = null!; // Navigation property for Category, configured to be required
 
 }

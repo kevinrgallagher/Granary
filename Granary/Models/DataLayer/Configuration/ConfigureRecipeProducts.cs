@@ -8,12 +8,26 @@ public class ConfigureRecipeProducts : IEntityTypeConfiguration<RecipeProduct>
 {
     public void Configure(EntityTypeBuilder<RecipeProduct> entity)
     {
-        // Configure decimal precision
+        // Configure decimal precision for quantity
         entity.Property(p => p.Quantity)
-            .HasColumnType("decimal(10, 2)");
-
-        // Composite key
+                      .HasColumnType("decimal(10, 2)");
+        
+        // Define composite primary key for recipe product
         entity.HasKey(rp => new { rp.RecipeId, rp.ProductId });
+
+        // Establish required relationship between recipe product and recipe, deleting a recipe deletes its recipe products
+        entity.HasOne(rp => rp.Recipe)
+              .WithMany(r => r.RecipeProducts)
+              .HasForeignKey(rp => rp.RecipeId)
+              .IsRequired()
+              .OnDelete(DeleteBehavior.Cascade);
+
+        // Establish required relationship between recipe product and product, cannot delete product if it's used in a recipe
+        entity.HasOne(rp => rp.Product)
+              .WithMany(p => p.RecipeProducts)
+              .HasForeignKey(rp => rp.ProductId)
+              .IsRequired()
+              .OnDelete(DeleteBehavior.Restrict);
 
         entity.HasData(
             // Tomato Soup (Recipe 1)

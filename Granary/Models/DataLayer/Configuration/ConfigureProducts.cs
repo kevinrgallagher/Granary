@@ -16,6 +16,26 @@ internal class ConfigureProducts : IEntityTypeConfiguration<Product>
         entity.Property(p => p.UnitPrice)
             .HasColumnType("decimal(10, 2)");
 
+        // Establish required relationship between product and category, cannot delete category if products exist
+        entity.HasOne(p => p.Category)
+            .WithMany(c => c.Products)
+            .HasForeignKey(p => p.CategoryId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Establish required relationship between product and supplier products, cannot delete product if supplier products exist
+        entity.HasMany(p => p.SupplierProducts)
+              .WithOne(sp => sp.Product)
+              .HasForeignKey(sp => sp.ProductId)
+              .IsRequired()
+              .OnDelete(DeleteBehavior.Restrict);
+
+        // Establish required relationship between product and recipe products, cannot delete product if recipe products exist
+        entity.HasMany(p => p.RecipeProducts)
+              .WithOne(rp => rp.Product)
+              .HasForeignKey(rp => rp.ProductId)
+              .IsRequired()
+              .OnDelete(DeleteBehavior.Restrict);
+
         entity.HasData(
             new Product { ProductId = 1, ProductName = "Cherry Tomatoes", UnitType = "each", UnitPrice = 2.99m, StockQuantity = 100, Description = "Small sweet tomatoes", CategoryId = 1 },
             new Product { ProductId = 2, ProductName = "Roma Tomatoes", UnitType = "pound", UnitPrice = 1.49m, StockQuantity = 200, Description = "Ideal for sauces", CategoryId = 1 },

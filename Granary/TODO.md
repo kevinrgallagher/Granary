@@ -58,7 +58,11 @@ Inventory tracking, invoice processing, variance reporting, recipe management ap
 - [ ] AddInvoice view should have a select list for suppliers
 - [ ] Implement views for updating products, suppliers, invoices, recipes
 - [ ] Implement buttons for deleting products, suppliers, invoices, recipes
-- [ ] Product and inventory views should display category name, not Id
+- [x] Product and inventory views should display category name, not Id
+- [x] Establish cascade and required behavior for supplier, invoice, invoiceproduct, and product
+- [x] Changed all configuration files, established requirements, composite keys, and cascade delete behavior
+- [ ] Test the app again to make sure we didn't break anything
+- [ ] This might be a good time to add unit tests
 
 
 # REVIEW MATERIAL

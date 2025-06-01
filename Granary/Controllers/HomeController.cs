@@ -2,14 +2,12 @@ using Granary.Models.DataLayer;
 using Granary.Models.DomainModels;
 using Granary.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Granary.Controllers;
 
-public class HomeController : Controller
+public class HomeController(GranaryContext context) : Controller // Using new C# 12 primary constructor
 {
-    private readonly GranaryContext context;
-    public HomeController(GranaryContext ctx) { context = ctx; }
-
     public IActionResult Index()
     {
         return View();
@@ -20,13 +18,15 @@ public class HomeController : Controller
     {
         // Using inventory view model for formatting and calculations
         var inventory = context.Products
+            .Include(p => p.Category)
             .Select(p => new InventoryViewModel
             {
                 ProductId = p.ProductId,
                 Name = p.ProductName,
                 UnitType = p.UnitType,
                 UnitPrice = p.UnitPrice,
-                StockQuantity = p.StockQuantity
+                StockQuantity = p.StockQuantity,
+                CategoryName = p.Category.CategoryName
             })
             .ToList();
         return View(inventory);
@@ -37,6 +37,7 @@ public class HomeController : Controller
     {
         // Using product view model for formatting and calculations
         var product = context.Products
+            .Include(p => p.Category)
             .Select(p => new ProductViewModel
             {
                 ProductId = p.ProductId,
@@ -44,7 +45,8 @@ public class HomeController : Controller
                 UnitType = p.UnitType,
                 UnitPrice = p.UnitPrice,
                 Description = p.Description,
-                CategoryId = p.CategoryId
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category.CategoryName
             })
             .ToList();
         return View(product);

@@ -6,8 +6,26 @@ namespace Granary.Models;
 
 public class ConfigureInvoiceProducts : IEntityTypeConfiguration<InvoiceProduct>
 {
+
     public void Configure(EntityTypeBuilder<InvoiceProduct> entity)
     {
+        // Establish composite key for InvoiceProduct
+        entity.HasKey(ip => new { ip.InvoiceId, ip.ProductId });
+
+        // Establish required relationship between invoice product and invoice, deleting invoice deletes invoice products
+        entity.HasOne(ip => ip.Invoice)
+              .WithMany(i => i.InvoiceProducts)
+              .HasForeignKey(ip => ip.InvoiceId)
+              .IsRequired()
+              .OnDelete(DeleteBehavior.Cascade);
+
+        // Establish required relationship between invoice product and product, deleting product does not delete invoice products
+        entity.HasOne(ip => ip.Product)
+              .WithMany(p => p.InvoiceProducts)
+              .HasForeignKey(ip => ip.ProductId)
+              .IsRequired()
+              .OnDelete(DeleteBehavior.Restrict);
+
         // Configure decimal precision
         entity.Property(p => p.Quantity)
             .HasColumnType("decimal(10, 2)");
