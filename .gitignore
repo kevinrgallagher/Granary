@@ -361,3 +361,11 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Ignore App Data folder
+App_Data/
+*.mdf
+*.ldf
+
+# Ignore appsettings file
+appsettings.json

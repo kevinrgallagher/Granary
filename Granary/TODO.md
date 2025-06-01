@@ -61,8 +61,9 @@ Inventory tracking, invoice processing, variance reporting, recipe management ap
 - [x] Product and inventory views should display category name, not Id
 - [x] Establish cascade and required behavior for supplier, invoice, invoiceproduct, and product
 - [x] Changed all configuration files, established requirements, composite keys, and cascade delete behavior
+- [x] Modified gitignore file for common security concerns
 - [ ] Test the app again to make sure we didn't break anything
-- [ ] This might be a good time to add unit tests
+- [ ] This might be a good time to learn about unit tests, it's becoming cumbersome to test the app
 
 
 # REVIEW MATERIAL
