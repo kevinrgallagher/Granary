@@ -21,7 +21,9 @@ Inventory tracking, invoice processing, variance reporting, recipe management ap
 - [ ] Add attributes to other models as necessary - we have a good scaffold, build it out
 - [ ] Make sure to update configuration file seed data, views, controllers, etc.
 - [ ] Create a new migration and update the database
-
+- [ ] "Most code isn't worth guarding like a state secret."
+- [ ] Light-weight means we should go minimum load time, miniumum barrier-to-entry, minimum data entry
+- [ ] Minimum data entry - that's the angle
 
 
 # TODO
@@ -100,5 +102,8 @@ Inventory tracking, invoice processing, variance reporting, recipe management ap
 - [ ] Forms should return to the list view for that model if validation succeeds
 - [ ] Fix datetime format in invoice list view, fix datetime input box in add invoice view
 - [ ] Invoice view needs a lot of functionality - display items, add items, delete items, etc.
+- [ ] Add 'search by Id' ala Chapter something from murach's
+- [ ] Unit price and total value should be in either inventory or product views, not both
+- [ ] Remove unit price from product model?
 - [ ] 
 
