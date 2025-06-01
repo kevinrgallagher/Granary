@@ -18,3 +18,4 @@ public class ProductViewModel
         ? UnitPrice.ToString("C0")
         : UnitPrice.ToString("C2");
 }
+

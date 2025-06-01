@@ -7,6 +7,7 @@ Inventory tracking, invoice processing, variance reporting, recipe management ap
 - [ ] What if a product has multiple suppliers, each with a different price?
 - [ ] Should products be unique by name, unit type, supplier, or some combination?
 - [ ] Look into how we handled inventory model in the Warehouse database, might help
+- [ ] Inventory should be the primary model, product should almost be a property of inventory
 
 
 # BEFORE ANYTHING ELSE
@@ -20,6 +21,7 @@ Inventory tracking, invoice processing, variance reporting, recipe management ap
 - [ ] Add attributes to other models as necessary - we have a good scaffold, build it out
 - [ ] Make sure to update configuration file seed data, views, controllers, etc.
 - [ ] Create a new migration and update the database
+
 
 
 # TODO
@@ -62,8 +64,10 @@ Inventory tracking, invoice processing, variance reporting, recipe management ap
 - [x] Establish cascade and required behavior for supplier, invoice, invoiceproduct, and product
 - [x] Changed all configuration files, established requirements, composite keys, and cascade delete behavior
 - [x] Modified gitignore file for common security concerns
+- [	] New migration, updated database, sanity check successful
 - [ ] Test the app again to make sure we didn't break anything
 - [ ] This might be a good time to learn about unit tests, it's becoming cumbersome to test the app
+- [ ] This would also be a good time to add delete buttons, so we can test cascade behaviors
 
 
 # REVIEW MATERIAL
