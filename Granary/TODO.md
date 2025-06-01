@@ -1,5 +1,8 @@
 ﻿# APPLICATION DESCRIPTION
 Inventory tracking, invoice processing, variance reporting, recipe management application
+Chefs that are used to paper and pencil don't want to switch to a data-heavy application
+These are the target users, so the application should be lightweight and easy to use
+This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 
 
 # REMODELING DATABASE
@@ -18,12 +21,10 @@ Inventory tracking, invoice processing, variance reporting, recipe management ap
  On top of that, we have to start version control, right now, for tons of reasons
 - [x] Get on GitHub, establish version control, and start committing code
 - [ ] Resolve issue with Product, Supplier, and ProductSupplier models
-- [ ] Add attributes to other models as necessary - we have a good scaffold, build it out
-- [ ] Make sure to update configuration file seed data, views, controllers, etc.
+- [x] Add attributes to other models as necessary - we have a good scaffold, build it out
+- [x] Make sure to update configuration file seed data, views, controllers, etc.
 - [ ] Create a new migration and update the database
-- [ ] "Most code isn't worth guarding like a state secret."
-- [ ] Light-weight means we should go minimum load time, miniumum barrier-to-entry, minimum data entry
-- [ ] Minimum data entry - that's the angle
+
 
 
 # TODO
@@ -66,8 +67,8 @@ Inventory tracking, invoice processing, variance reporting, recipe management ap
 - [x] Establish cascade and required behavior for supplier, invoice, invoiceproduct, and product
 - [x] Changed all configuration files, established requirements, composite keys, and cascade delete behavior
 - [x] Modified gitignore file for common security concerns
-- [	] New migration, updated database, sanity check successful
-- [ ] Test the app again to make sure we didn't break anything
+- [x] New migration, updated database, sanity check successful
+- [ ] Test the app again to make sure we didn't break anything - add product failed
 - [ ] This might be a good time to learn about unit tests, it's becoming cumbersome to test the app
 - [ ] This would also be a good time to add delete buttons, so we can test cascade behaviors
 
