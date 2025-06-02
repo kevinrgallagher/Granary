@@ -11,7 +11,8 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [ ] Should products be unique by name, unit type, supplier, or some combination?
 - [ ] Look into how we handled inventory model in the Warehouse database, might help
 - [ ] Inventory should be the primary model, product should almost be a property of inventory
-
+- [ ] Read C13 of Database textbook, look into star schema, document databases
+- [ ] Look into CouchDB, MongoDB, RavenDB, NoSQL databases in general
 
 # BEFORE ANYTHING ELSE
  The list has grown very long and intimidating, so let's pick something to start with
@@ -24,7 +25,6 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [x] Add attributes to other models as necessary - we have a good scaffold, build it out
 - [x] Make sure to update configuration file seed data, views, controllers, etc.
 - [ ] Create a new migration and update the database
-
 
 
 # TODO
@@ -65,11 +65,11 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [ ] Implement buttons for deleting products, suppliers, invoices, recipes
 - [x] Product and inventory views should display category name, not Id
 - [x] Establish cascade and required behavior for supplier, invoice, invoiceproduct, and product
-- [x] Changed all configuration files, established requirements, composite keys, and cascade delete behavior
+- [x] Changed all configuration files, Fluent for required relationships, composite keys, and cascade delete behavior
 - [x] Modified gitignore file for common security concerns
 - [x] New migration, updated database, sanity check successful
-- [ ] Test the app again to make sure we didn't break anything - add product failed
-- [ ] This might be a good time to learn about unit tests, it's becoming cumbersome to test the app
+- [ ] Test the app again to make sure we didn't break anything - add product failed, other add pages succeed
+- [ ] This might be a good time to learn about unit tesasdts, it's becoming cumbersome to test the app
 - [ ] This would also be a good time to add delete buttons, so we can test cascade behaviors
 
 

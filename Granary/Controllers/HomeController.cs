@@ -36,7 +36,7 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
     public IActionResult Product()
     {
         // Using product view model for formatting and calculations
-        var product = context.Products
+        var productList = context.Products
             .Include(p => p.Category)
             .Select(p => new ProductViewModel
             {
@@ -49,7 +49,7 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
                 CategoryName = p.Category.CategoryName
             })
             .ToList();
-        return View(product);
+        return View(productList);
     }
 
     // Navigate to Supplier page
@@ -116,12 +116,12 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
             context.Products.Add(prod);
             context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Product");
         }
 
         // If model state is invalid, redisplay the form with validation errors
         // TODO: Re-fetch dropdown data once select lists are implemented properly
-        return View("Product", product);
+        return View(product);
     }
 
     // Form submission for adding a supplier

@@ -4,7 +4,6 @@ namespace Granary.Models.DomainModels;
 
 public class Product
 {
-    [Required]
     public int ProductId { get; set; } // Primary key, foreign key to the three join tables
 
     [Required]
