@@ -59,6 +59,7 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [x] Added required tags to all attributes for all models 
 - [x] Add more validation
 - [x] AddProduct view category selectlist should be populated from category model
+- [x] AddProduct Category selectlist is now reloaded upon validation failure
 - [ ] AddProduct view unit type selectlist should be populated somehow, not hard-coded, new model maybe
 - [ ] AddInvoice view should have a select list for suppliers
 - [ ] Implement views for updating products, suppliers, invoices, recipes
@@ -79,8 +80,9 @@ AddProduct form and clicked submit, the page reloaded but no entries were change
 no error messages showed. We figured out that the the model state was considered invalid, but we didn't know why.
 Eventually, we added some validation messages and discovered that CategoryId was not binding - the error messages 
 were "The Category field is required" and "The Categories field is required." To correct this, we added a viewmodel
-for AddProduct and we modified the category dropdown to a SelectList of categories, and made sure to reload the 
-selectlist if the validation failed. 
+for AddProduct and we modified the category dropdown to a SelectList of categories, made sure to reload the 
+selectlist if the validation failed, and updated the view to use the new SelectList. Important to note is we used two 
+using statements: "using Microsoft.AspNetCore.Mvc.ModelBinding; using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;"
 - [x] Added strongly typed ViewModel using [BindNever] and [ValidateNever] for the selectlist.
 - [x] Bound razor inputs within the AddProduct view to the ViewModel, changed inputs to 'Product.ProductName', etc.
 - [x] Added a range validation to the Product.CategoryId property so that zero is not a valid value.
