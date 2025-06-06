@@ -2,6 +2,7 @@ using Granary.Models.DataLayer;
 using Granary.Models.DomainModels;
 using Granary.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Granary.Controllers;
@@ -73,10 +74,14 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
         return View(invoices);
     }
 
-    // Navigate to AddProduct page
+    [HttpGet]
     public IActionResult AddProduct()
     {
-        return View();
+        var vm = new AddProductViewModel
+        {
+            Categories = new SelectList(context.Categories.ToList(), "CategoryId", "CategoryName")
+        };
+        return View(vm);
     }
 
     // Navigate to AddSupplier page
@@ -99,29 +104,18 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
 
     // Form submission for adding a product
     [HttpPost]
-    public IActionResult AddProduct(Product product)
+    public IActionResult AddProduct(AddProductViewModel vm)
     {
         if (ModelState.IsValid)
         {
-            var prod = new Product
-            {
-                CategoryId = product.CategoryId,
-                ProductName = product.ProductName,
-                UnitType = product.UnitType,
-                UnitPrice = product.UnitPrice,
-                StockQuantity = product.StockQuantity,
-                Description = product.Description
-            };
-
-            context.Products.Add(prod);
+            context.Products.Add(vm.Product);
             context.SaveChanges();
-
             return RedirectToAction("Product");
         }
 
-        // If model state is invalid, redisplay the form with validation errors
-        // TODO: Re-fetch dropdown data once select lists are implemented properly
-        return View(product);
+        // If invalid, re-populate the categories dropdown and return to the view
+            vm.Categories = new SelectList(context.Categories.ToList(), "CategoryId", "CategoryName");
+            return View(vm);        
     }
 
     // Form submission for adding a supplier

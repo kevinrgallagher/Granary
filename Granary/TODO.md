@@ -58,7 +58,7 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [x] Name properties for models should be made consistent, either 'Name' or 'SupplierName' for instance
 - [x] Added required tags to all attributes for all models 
 - [x] Add more validation
-- [ ] AddProduct view category selectlist should be populated from category model
+- [x] AddProduct view category selectlist should be populated from category model
 - [ ] AddProduct view unit type selectlist should be populated somehow, not hard-coded, new model maybe
 - [ ] AddInvoice view should have a select list for suppliers
 - [ ] Implement views for updating products, suppliers, invoices, recipes
@@ -68,10 +68,25 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [x] Changed all configuration files, Fluent for required relationships, composite keys, and cascade delete behavior
 - [x] Modified gitignore file for common security concerns
 - [x] New migration, updated database, sanity check successful
-- [ ] Test the app again to make sure we didn't break anything - add product failed, other add pages succeed
-- [ ] This might be a good time to learn about unit tesasdts, it's becoming cumbersome to test the app
+- [x] Test the app again to make sure we didn't break anything - add product failed, other add pages succeed
+- [ ] This might be a good time to learn about unit tests, it's becoming cumbersome to test the app
 - [ ] This would also be a good time to add delete buttons, so we can test cascade behaviors
 
+# MAJOR BLOCKER BUXFIX
+This is a review of the steps we had to take to fix a major bug that was preventing us from adding products.
+After making some major changes to the models and views, we were unable to add products. When we filled in the
+AddProduct form and clicked submit, the page reloaded but no entries were changed, the product wasn't added, and
+no error messages showed. We figured out that the the model state was considered invalid, but we didn't know why.
+Eventually, we added some validation messages and discovered that CategoryId was not binding - the error messages 
+were "The Category field is required" and "The Categories field is required." To correct this, we added a viewmodel
+for AddProduct and we modified the category dropdown to a SelectList of categories, and made sure to reload the 
+selectlist if the validation failed. 
+- [x] Added strongly typed ViewModel using [BindNever] and [ValidateNever] for the selectlist.
+- [x] Bound razor inputs within the AddProduct view to the ViewModel, changed inputs to 'Product.ProductName', etc.
+- [x] Added a range validation to the Product.CategoryId property so that zero is not a valid value.
+- [x] Told ASP.NET not to validate the Product model's Category navigation property since the full object isn't used.
+We will likely run into this problem as we add functionality to the other models, so it is important to review this
+and ensure that we understand the problems, the solution, and also to determine if this solution is the best one.
 
 # REVIEW MATERIAL
 - [x] Navigation properties, under-the-hood explanation
