@@ -5,14 +5,7 @@ These are the target users, so the application should be lightweight and easy to
 This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 
 
-# REMODELING DATABASE
-- [ ] There's still something bothering me about my schema re: product, supplier, supplierproduct
-- [ ] What if a product has multiple suppliers, each with a different price?
-- [ ] Should products be unique by name, unit type, supplier, or some combination?
-- [ ] Look into how we handled inventory model in the Warehouse database, might help
-- [ ] Inventory should be the primary model, product should almost be a property of inventory
-- [ ] Read C13 of Database textbook, look into star schema, document databases
-- [ ] Look into CouchDB, MongoDB, RavenDB, NoSQL databases in general
+
 
 # BEFORE ANYTHING ELSE
  The list has grown very long and intimidating, so let's pick something to start with
@@ -21,11 +14,17 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
  Then we can move on to adding functionality and making things work nicer
  On top of that, we have to start version control, right now, for tons of reasons
 - [x] Get on GitHub, establish version control, and start committing code
-- [ ] Resolve issue with Product, Supplier, and ProductSupplier models
-- [x] Add attributes to other models as necessary - we have a good scaffold, build it out
-- [x] Make sure to update configuration file seed data, views, controllers, etc.
-- [ ] Create a new migration and update the database
-
+- [x] Resolve issue with Product, Supplier, and ProductSupplier models
+- [x] We have another issue with these. ProductSupplier is now a useless entity
+- [x] Remove ProductSupplier, navigation properties, configuration, seed data
+- [x] Really need to make sure we clean this up - it's been a while since creating the models/schema
+- [x] Check Fluent API config for Product, Supplier, and ProductSupplier (review Fluent API as well)
+- [x] Check controllers, views, etc.
+- [x] Product should now have a zero or many to zero or one relationship with supplier
+- [x] Create a new migration and update the database - tested clean
+- [ ] Update AddProduct view to allow for selecting a supplier (required)
+- [ ] Implement new MiscProduct entity
+- [ ] Implement UI changes for MiscProduct - requires a separate view, controller, etc.
 
 # TODO
 - [x] Scaffold views, controllers
@@ -73,6 +72,25 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [ ] This might be a good time to learn about unit tests, it's becoming cumbersome to test the app
 - [ ] This would also be a good time to add delete buttons, so we can test cascade behaviors
 
+# LATER ON
+- [x] Reconcile navbar with views 
+- [x] Add seed data to dbcontext
+- [x] Configuration files for each model
+- [x] Remove cascading delete for certain models
+- [ ] Account for historical data
+- [x] Addproduct, recipe, invoice, supplier, category should be pop-up pages instead of embedded in view
+- [ ] Separate HomeController into separate controllers for each view
+- [ ] Remove IDs from the displayed tables, but leave for now for ease of development
+- [ ] Add local and server-side validation to all models
+- [ ] Populate invoice list view with invoiceproduct line items, supplier name
+- [ ] Populate recipe list view with recipeproduct line items
+- [ ] Forms should return to the same form with the same information if validation fails
+- [ ] Forms should return to the list view for that model if validation succeeds
+- [ ] Fix datetime format in invoice list view, fix datetime input box in add invoice view
+- [ ] Invoice view needs a lot of functionality - display items, add items, delete items, etc.
+- [ ] Add 'search by Id' ala Chapter something from murach's
+- [ ] Unit price and total value should be in either inventory or product views, not both
+
 # REVIEW MATERIAL
 - [x] Navigation properties, under-the-hood explanation
 - [ ] DbContext class in general, under-the-hood explanation, configuration classes
@@ -84,29 +102,24 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [x] Get on github and start version controlling and committing
 - [ ] Look into Copilot - I think there's a full agent available - Github Models Hub?
 
-
-# LATER ON
-- [x] Reconcile navbar with views 
-- [x] Add seed data to dbcontext
-- [x] Configuration files for each model
-- [ ] Remove cascading delete for certain models
-- [ ] Consider storing historical data
-- [x] Addproduct, recipe, invoice, supplier, category should be pop-up pages instead of embedded in view
-- [ ] Separate HomeController into separate controllers for each view
-- [ ] Remove IDs from the displayed tables, but leave for now for ease of development
-- [ ] Add local and server-side validation to all models
-- [ ] Dropdown for Product page so user can select a supplier for that product and see the price
-- [ ] Populate invoice list view with invoiceproduct line items, supplier name
-- [ ] Populate recipe list view with recipeproduct line items
-- [ ] Populate supplier list with supplierproduct line items
-- [ ] Forms should return to the same form with the same information if validation fails
-- [ ] Forms should return to the list view for that model if validation succeeds
-- [ ] Fix datetime format in invoice list view, fix datetime input box in add invoice view
-- [ ] Invoice view needs a lot of functionality - display items, add items, delete items, etc.
-- [ ] Add 'search by Id' ala Chapter something from murach's
-- [ ] Unit price and total value should be in either inventory or product views, not both
-- [ ] Remove unit price from product model?
-- [ ] 
+# MAJOR BLOCKER DATABASE REMODEL 8/18/25
+Problem: What if a product has multiple suppliers, each with a different price?
+Solution: The solution we've settled on is to create a new business rule: each product used in
+a recipe will have one and only one 'default' supplier. If a manager needs to purchase an item or
+product from a grocery store or other 'alternative' supplier, they can do so, but they add this 
+as a separate 'misc product' which is not tracked the same as our other products. This means we 
+need to give these misc products their own entity - they don't need to be related to an existing 
+supplier, but we still need to track their name/description, unit type, unit price, and quantity.
+Other fields could include manager name, reason for purchase, location of purchase, etc.
+These misc products will not be associated with any recipes. At the end of the week, when the 
+manager analyzes inventory, they check a misc product report and compare it to our product variances.
+Thus, if they see 'missing ten pounds of roma tomatoes' they can match this shortfall to the relevant
+miscellaneous product. Additionally, a report could be made that tracks how much money was 'lost' or
+'gained' by using these miscellaneous products in place of our standard suppliers. To go a step
+further, we could add a UI that let's a manager actually check in these misc products in place of 
+regular products so that a report can be generated that shows we are not 'missing product' as a result
+of waste or spoilage but rather due to a discrepency between official products and misc products.
+This way, managers know we may have spent more than we wanted to, but we aren't actually missing anything.
 
 # MAJOR BLOCKER BUXFIX 6/5/2025
 This is a review of the steps we had to take to fix a major bug that was preventing us from adding products.

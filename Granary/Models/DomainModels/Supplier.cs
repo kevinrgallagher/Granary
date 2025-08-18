@@ -6,7 +6,7 @@ namespace Granary.Models.DomainModels;
 public class Supplier
 {
     [Required]
-    public int SupplierId { get; set; } // Primary key, foreign key to SupplierProduct and Invoice
+    public int SupplierId { get; set; } // Primary key, foreign key to Product and Invoice
 
     [Required]
     public string SupplierName { get; set; } = string.Empty;
@@ -20,7 +20,7 @@ public class Supplier
     [Required]
     public string ContactPhone { get; set; } = string.Empty;
 
-    public ICollection<SupplierProduct>? SupplierProducts { get; set; } // Navigation property for SupplierProducts
+    public ICollection<Product>? Products { get; set; } // Navigation property for Products
     public ICollection<Invoice>? Invoices { get; set; } // Navigation property for Invoices
 
 }

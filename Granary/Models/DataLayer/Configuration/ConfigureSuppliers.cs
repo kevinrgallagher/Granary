@@ -8,17 +8,17 @@ public class ConfigureSuppliers : IEntityTypeConfiguration<Supplier>
 {
     public void Configure(EntityTypeBuilder<Supplier> entity)
     {
-        // Establish required relationship between supplier and products, cannot delete supplier if products exist
+        // Establish required relationship between supplier and invoice, cannot delete supplier if invoice exist
         entity.HasMany(s => s.Invoices)
               .WithOne(i => i.Supplier)
               .HasForeignKey(i => i.SupplierId)
               .IsRequired()
               .OnDelete(DeleteBehavior.Restrict);
 
-        // Establish required relationship between supplier and supplier products, cannot delete supplier if supplier products exist
-        entity.HasMany(s => s.SupplierProducts)
-              .WithOne(sp => sp.Supplier)
-              .HasForeignKey(sp => sp.SupplierId)
+        // Establish required relationship between supplier and product, cannot delete supplier if product exist
+        entity.HasMany(s => s.Products)
+              .WithOne(p => p.Supplier)
+              .HasForeignKey(p => p.SupplierId)
               .IsRequired()
               .OnDelete(DeleteBehavior.Restrict);
 

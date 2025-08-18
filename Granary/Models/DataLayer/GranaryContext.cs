@@ -11,7 +11,6 @@ public class GranaryContext(DbContextOptions<GranaryContext> options) : DbContex
     public DbSet<Supplier> Suppliers { get; set; } = null!;
     public DbSet<Category> Categories { get; set; } = null!;
     public DbSet<RecipeProduct> RecipeIngredients { get; set; } = null!;
-    public DbSet<SupplierProduct> SupplierProducts { get; set; } = null!;
     public DbSet<InvoiceProduct> InvoiceProducts { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -22,7 +21,6 @@ public class GranaryContext(DbContextOptions<GranaryContext> options) : DbContex
         modelBuilder.ApplyConfiguration(new ConfigureProducts());
         modelBuilder.ApplyConfiguration(new ConfigureSuppliers());
         modelBuilder.ApplyConfiguration(new ConfigureInvoices());
-        modelBuilder.ApplyConfiguration(new ConfigureSupplierProducts());
         modelBuilder.ApplyConfiguration(new ConfigureInvoiceProducts());
         modelBuilder.ApplyConfiguration(new ConfigureRecipes());
         modelBuilder.ApplyConfiguration(new ConfigureRecipeProducts());

@@ -13,9 +13,6 @@ public class ProductViewModel
     public string CategoryName { get; set; } = string.Empty;
 
     // Formatted string for displaying unit price without unnecessary trailing zeroes
-    public string FormattedUnitPrice =>
-    UnitPrice % 1 == 0
-        ? UnitPrice.ToString("C0")
-        : UnitPrice.ToString("C2");
+    public string FormattedUnitPrice => UnitPrice.ToString("C2");
 }
 

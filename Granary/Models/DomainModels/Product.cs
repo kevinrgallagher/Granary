@@ -11,6 +11,8 @@ public class Product
     [Range(1, int.MaxValue, ErrorMessage = "Please select a category.")]
     public int CategoryId { get; set; } // Foreign key to Category
 
+    public int SupplierId { get; set; } // Foreign key to Supplier
+
     public string ProductName { get; set; } = string.Empty;
 
     public string UnitType { get; set; } = string.Empty;
@@ -21,7 +23,7 @@ public class Product
 
     public string Description { get; set; } = string.Empty;
 
-    public ICollection<SupplierProduct>? SupplierProducts { get; set; } // Navigation property for SupplierProducts
+    public Supplier? Supplier { get; set; } // Navigation property for Suppliers
     public ICollection<InvoiceProduct>? InvoiceProducts { get; set; } // Navigation property for InvoiceProducts
     public ICollection<RecipeProduct>? RecipeProducts { get; set; } // Navigation property for RecipeProducts
 

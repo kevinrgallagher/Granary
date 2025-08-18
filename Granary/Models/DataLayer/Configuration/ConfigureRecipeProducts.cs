@@ -22,7 +22,7 @@ public class ConfigureRecipeProducts : IEntityTypeConfiguration<RecipeProduct>
               .IsRequired()
               .OnDelete(DeleteBehavior.Cascade);
 
-        // Establish required relationship between recipe product and product, cannot delete product if it's used in a recipe
+        // Establish required relationship between recipe product and product, cannot delete product if it's used in a recipe product
         entity.HasOne(rp => rp.Product)
               .WithMany(p => p.RecipeProducts)
               .HasForeignKey(rp => rp.ProductId)
