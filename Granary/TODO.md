@@ -4,9 +4,6 @@ Chefs that are used to paper and pencil don't want to switch to a data-heavy app
 These are the target users, so the application should be lightweight and easy to use
 This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 
-
-
-
 # BEFORE ANYTHING ELSE
  The list has grown very long and intimidating, so let's pick something to start with
  Review our models, fix our schema, update the ERD, etc.
@@ -24,8 +21,11 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [x] Create a new migration and update the database - tested clean
 - [x] Update product and invoiceproduct models to reflect updated schema
 - [x] Update configuration files and seed data to reflect updated schema
-- [ ] Update ProductViewModel, controller, and view to allow Product page to still display unit and price
-- [ ] Update AddProduct view to allow for selecting a supplier (required)
+- [x] Update ProductViewModel, controller, and view to allow Product page to still display unit and price
+- [x] Update AddProduct view to allow for selecting a supplier (required)
+- [x] Okay, we have made some progress - seem to have reconciled new schema changes, new migration, DB update
+- [ ] New problem: now for some reason products of ID 9 and 10 are showing no price or unit type
+- [ ] Does 'stock quantity' still make sense for the AddProduct view? It's a one-time entry, not an update
 - [ ] Implement new MiscProduct entity
 - [ ] Implement UI changes for MiscProduct - requires a separate view, controller, etc.
 

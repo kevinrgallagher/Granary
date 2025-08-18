@@ -17,39 +17,53 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
     // Navigate to Inventory page
     public IActionResult Inventory()
     {
-        // Using inventory view model for formatting and calculations
         var inventory = context.Products
             .Include(p => p.Category)
             .Select(p => new InventoryViewModel
             {
                 ProductId = p.ProductId,
                 Name = p.ProductName,
-                UnitType = p.UnitType,
-                UnitPrice = p.UnitPrice,
+                UnitType = p.InvoiceProducts!
+                    .OrderByDescending(ip => ip.Invoice.InvoiceDate)
+                    .Select(ip => ip.UnitType)
+                    .FirstOrDefault() ?? string.Empty,
+                UnitPrice = p.InvoiceProducts!
+                    .OrderByDescending(ip => ip.Invoice.InvoiceDate)
+                    .Select(ip => (decimal?)ip.UnitPrice)
+                    .FirstOrDefault() ?? 0m,
                 StockQuantity = p.StockQuantity,
                 CategoryName = p.Category.CategoryName
             })
+            .AsNoTracking()
             .ToList();
+
         return View(inventory);
     }
 
     // Navigate to Product page
     public IActionResult Product()
     {
-        // Using product view model for formatting and calculations
         var productList = context.Products
             .Include(p => p.Category)
             .Select(p => new ProductViewModel
             {
                 ProductId = p.ProductId,
                 Name = p.ProductName,
-                UnitType = p.UnitType,
-                UnitPrice = p.UnitPrice,
+                UnitType = p.InvoiceProducts!
+                    .OrderByDescending(ip => ip.Invoice.InvoiceDate)
+                    .Select(ip => ip.UnitType)
+                    .FirstOrDefault() ?? string.Empty,
+                UnitPrice = p.InvoiceProducts!
+                    .OrderByDescending(ip => ip.Invoice.InvoiceDate)
+                    .Select(ip => (decimal?)ip.UnitPrice)
+                    .FirstOrDefault() ?? 0m,
                 Description = p.Description,
                 CategoryId = p.CategoryId,
                 CategoryName = p.Category.CategoryName
             })
+            .AsNoTracking()
             .ToList();
+
         return View(productList);
     }
 
@@ -79,7 +93,8 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
     {
         var vm = new AddProductViewModel
         {
-            Categories = new SelectList(context.Categories.ToList(), "CategoryId", "CategoryName")
+            Categories = new SelectList(context.Categories.ToList(), "CategoryId", "CategoryName"),
+            Suppliers = new SelectList(context.Suppliers.ToList(), "SupplierId", "SupplierName"),
         };
         return View(vm);
     }
@@ -115,7 +130,8 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
 
         // If invalid, re-populate the categories dropdown and return to the view
             vm.Categories = new SelectList(context.Categories.ToList(), "CategoryId", "CategoryName");
-            return View(vm);        
+            vm.Suppliers = new SelectList(context.Suppliers.ToList(), "SupplierId", "SupplierName");
+        return View(vm);        
     }
 
     // Form submission for adding a supplier
@@ -140,7 +156,6 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
         }
 
         // If model state is invalid, redisplay the form with validation errors
-        // TODO: Re-fetch dropdown data once select lists are implemented properly
         return View("Supplier", supplier);
     }
 
@@ -167,7 +182,6 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
         }
 
         // If model state is invalid, redisplay the form with validation errors
-        // TODO: Re-fetch dropdown data once select lists are implemented properly
         return View("Invoice", invoice);
     }
 
@@ -191,10 +205,6 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
         }
 
         // If model state is invalid, redisplay the form with validation errors
-        // TODO: Re-fetch dropdown data once select lists are implemented properly
         return View("Recipe", recipe);
     }
-
-
-
 }

@@ -11,4 +11,8 @@ public class AddProductViewModel
     [BindNever]
     [ValidateNever]
     public SelectList Categories { get; set; } = null!;
+
+    [BindNever]
+    [ValidateNever]
+    public SelectList Suppliers { get; set; } = null!;
 }

@@ -1,0 +1,19 @@
+# .editorconfig for C# projects
+# Place this at the root of your solution or project
+root = true
+
+[*.cs]
+indent_style = space
+indent_size = 4
+charset = utf-8
+end_of_line = crlf
+insert_final_newline = true
+
+# Suppress warnings in auto-generated files (EF Core, ASP.NET, Designer, etc.)
+[**/Migrations/*.cs]
+dotnet_diagnostic.IDE0300.severity = none   # Collection initialization can be simplified
+dotnet_diagnostic.IDE0058.severity = none   # Expression value is never used
+dotnet_diagnostic.IDE1006.severity = none   # Naming rule violations (like _camelCase in migrations)
+
+[**/*Designer.cs]
+dotnet_diagnos_
