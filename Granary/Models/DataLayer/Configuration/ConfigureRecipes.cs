@@ -15,6 +15,7 @@ public class ConfigureRecipes : IEntityTypeConfiguration<Recipe>
             .IsRequired()
             .OnDelete(DeleteBehavior.Cascade);
 
+        // Seed data
         entity.HasData(
             new Recipe
             {

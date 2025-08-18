@@ -15,10 +15,6 @@ public class Product
 
     public string ProductName { get; set; } = string.Empty;
 
-    public string UnitType { get; set; } = string.Empty;
-
-    public decimal UnitPrice { get; set; } = 0.0m;
-
     public decimal StockQuantity { get; set; }
 
     public string Description { get; set; } = string.Empty;

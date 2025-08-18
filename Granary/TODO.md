@@ -22,6 +22,9 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [x] Check controllers, views, etc.
 - [x] Product should now have a zero or many to zero or one relationship with supplier
 - [x] Create a new migration and update the database - tested clean
+- [x] Update product and invoiceproduct models to reflect updated schema
+- [x] Update configuration files and seed data to reflect updated schema
+- [ ] Update ProductViewModel, controller, and view to allow Product page to still display unit and price
 - [ ] Update AddProduct view to allow for selecting a supplier (required)
 - [ ] Implement new MiscProduct entity
 - [ ] Implement UI changes for MiscProduct - requires a separate view, controller, etc.
