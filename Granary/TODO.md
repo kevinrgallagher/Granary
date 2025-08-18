@@ -12,6 +12,7 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
  On top of that, we have to start version control, right now, for tons of reasons
 - [x] Get on GitHub, establish version control, and start committing code
 - [x] Resolve issue with Product, Supplier, and ProductSupplier models
+- [x] Updated ERD, see 2.0 version of Granary ERD on LucidChart
 - [x] We have another issue with these. ProductSupplier is now a useless entity
 - [x] Remove ProductSupplier, navigation properties, configuration, seed data
 - [x] Really need to make sure we clean this up - it's been a while since creating the models/schema
@@ -62,7 +63,7 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [x] Add more validation
 - [x] AddProduct view category selectlist should be populated from category model
 - [x] AddProduct Category selectlist is now reloaded upon validation failure
-- [ ] AddProduct view unit type selectlist should be populated somehow, not hard-coded, new model maybe
+- [ ] AddProduct view unit type selectlist should be populated somehow, not hard-coded, new lookup model maybe
 - [ ] AddInvoice view should have a select list for suppliers
 - [ ] Implement views for updating products, suppliers, invoices, recipes
 - [ ] Implement buttons for deleting products, suppliers, invoices, recipes
@@ -103,7 +104,7 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [ ] Query builders
 - [ ] Select lists populated from database
 - [x] Get on github and start version controlling and committing
-- [ ] Look into Copilot - I think there's a full agent available - Github Models Hub?
+- [x] Look into Copilot - Not impressed
 
 # MAJOR BLOCKER DATABASE REMODEL 8/18/25
 Problem: What if a product has multiple suppliers, each with a different price?
@@ -117,12 +118,13 @@ Other fields could include manager name, reason for purchase, location of purcha
 These misc products will not be associated with any recipes. At the end of the week, when the 
 manager analyzes inventory, they check a misc product report and compare it to our product variances.
 Thus, if they see 'missing ten pounds of roma tomatoes' they can match this shortfall to the relevant
-miscellaneous product. Additionally, a report could be made that tracks how much money was 'lost' or
-'gained' by using these miscellaneous products in place of our standard suppliers. To go a step
-further, we could add a UI that let's a manager actually check in these misc products in place of 
-regular products so that a report can be generated that shows we are not 'missing product' as a result
-of waste or spoilage but rather due to a discrepency between official products and misc products.
-This way, managers know we may have spent more than we wanted to, but we aren't actually missing anything.
+miscellaneous product '10 lbs of tomatoes purchased from local supplier at x price/unit by y manager.' 
+Additionally, a report could be made that tracks how much money was 'lost' or 'gained' by using these 
+miscellaneous products in place of our standard suppliers. To go a step further, we could add a UI that 
+let's a manager actually check in these misc products in place of regular products so that a report can 
+be generated that shows we are not 'missing product' as a result of waste or spoilage but rather due to 
+a discrepency between official products and misc products. This way, managers know we may have spent 
+more than we wanted to, but we aren't actually missing anything.
 
 # MAJOR BLOCKER BUXFIX 6/5/2025
 This is a review of the steps we had to take to fix a major bug that was preventing us from adding products.

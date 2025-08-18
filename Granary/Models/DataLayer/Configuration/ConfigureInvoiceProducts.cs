@@ -1,8 +1,8 @@
-﻿using Granary.Models.DomainModels;
+using Granary.Models.DomainModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Granary.Models;
+namespace Granary.Models.DataLayer.Configuration;
 
 public class ConfigureInvoiceProducts : IEntityTypeConfiguration<InvoiceProduct>
 {
