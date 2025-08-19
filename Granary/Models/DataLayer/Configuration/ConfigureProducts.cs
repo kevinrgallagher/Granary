@@ -38,18 +38,18 @@ internal class ConfigureProducts : IEntityTypeConfiguration<Product>
 
         // Seed data
         entity.HasData(
-            new Product { ProductId = 1, ProductName = "Cherry Tomatoes", StockQuantity = 100, Description = "Small sweet tomatoes", CategoryId = 1, SupplierId = 4 },
-            new Product { ProductId = 2, ProductName = "Roma Tomatoes", StockQuantity = 200, Description = "Ideal for sauces", CategoryId = 1, SupplierId = 4 },
-            new Product { ProductId = 3, ProductName = "Beefsteak Tomatoes", StockQuantity = 150, Description = "Large slicing tomato", CategoryId = 1, SupplierId = 4 },
+            new Product { ProductId = 1, ProductName = "Cherry Tomatoes", Description = "Small sweet tomatoes", CategoryId = 1, SupplierId = 4 },
+            new Product { ProductId = 2, ProductName = "Roma Tomatoes", Description = "Ideal for sauces", CategoryId = 1, SupplierId = 4 },
+            new Product { ProductId = 3, ProductName = "Beefsteak Tomatoes", Description = "Large slicing tomato", CategoryId = 1, SupplierId = 4 },
 
-            new Product { ProductId = 4, ProductName = "White Mushrooms", StockQuantity = 80, Description = "Mild and versatile", CategoryId = 2, SupplierId = 3 },
-            new Product { ProductId = 5, ProductName = "Portobello Mushrooms", StockQuantity = 60, Description = "Meaty texture, great grilled", CategoryId = 2, SupplierId = 3 },
-            new Product { ProductId = 6, ProductName = "Shiitake Mushrooms", StockQuantity = 300, Description = "Savory and rich flavor", CategoryId = 2, SupplierId = 3 },
+            new Product { ProductId = 4, ProductName = "White Mushrooms", Description = "Mild and versatile", CategoryId = 2, SupplierId = 3 },
+            new Product { ProductId = 5, ProductName = "Portobello Mushrooms", Description = "Meaty texture, great grilled", CategoryId = 2, SupplierId = 3 },
+            new Product { ProductId = 6, ProductName = "Shiitake Mushrooms", Description = "Savory and rich flavor", CategoryId = 2, SupplierId = 3 },
 
-            new Product { ProductId = 7, ProductName = "Yellow Onions", StockQuantity = 500, Description = "Common all-purpose onion", CategoryId = 3, SupplierId = 5 },
-            new Product { ProductId = 8, ProductName = "Red Onions", StockQuantity = 400, Description = "Colorful and sharp", CategoryId = 3, SupplierId = 5 },
-            new Product { ProductId = 9, ProductName = "Sweet Onions", StockQuantity = 350, Description = "Mild and sweet", CategoryId = 3, SupplierId = 5 },
-            new Product { ProductId = 10, ProductName = "Cippolini Onions", StockQuantity = 250, Description = "Small and sweet, ideal roasting", CategoryId = 3, SupplierId = 5 }
+            new Product { ProductId = 7, ProductName = "Yellow Onions", Description = "Common all-purpose onion", CategoryId = 3, SupplierId = 5 },
+            new Product { ProductId = 8, ProductName = "Red Onions", Description = "Colorful and sharp", CategoryId = 3, SupplierId = 5 },
+            new Product { ProductId = 9, ProductName = "Sweet Onions", Description = "Mild and sweet", CategoryId = 3, SupplierId = 5 },
+            new Product { ProductId = 10, ProductName = "Cippolini Onions", Description = "Small and sweet, ideal roasting", CategoryId = 3, SupplierId = 5 }
         );
     }
 }

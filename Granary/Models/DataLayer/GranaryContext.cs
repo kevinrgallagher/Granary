@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Granary.Models.DomainModels;
+using Granary.Models.DataLayer.Configuration;
 
 namespace Granary.Models.DataLayer;
 

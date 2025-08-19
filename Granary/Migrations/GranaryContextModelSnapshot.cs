@@ -199,26 +199,34 @@ namespace Granary.Migrations
                         new
                         {
                             InvoiceId = 4,
-                            ProductId = 2,
-                            Quantity = 18.0m
+                            ProductId = 7,
+                            Quantity = 18.00m,
+                            UnitPrice = 1.49m,
+                            UnitType = "Pound"
                         },
                         new
                         {
                             InvoiceId = 4,
-                            ProductId = 3,
-                            Quantity = 22.0m
-                        },
-                        new
-                        {
-                            InvoiceId = 5,
-                            ProductId = 7,
-                            Quantity = 50.0m
-                        },
-                        new
-                        {
-                            InvoiceId = 5,
                             ProductId = 8,
-                            Quantity = 30.0m
+                            Quantity = 22.00m,
+                            UnitPrice = 1.25m,
+                            UnitType = "Each"
+                        },
+                        new
+                        {
+                            InvoiceId = 5,
+                            ProductId = 9,
+                            Quantity = 50.00m,
+                            UnitPrice = 0.89m,
+                            UnitType = "Pound"
+                        },
+                        new
+                        {
+                            InvoiceId = 5,
+                            ProductId = 10,
+                            Quantity = 30.00m,
+                            UnitPrice = 1.10m,
+                            UnitType = "Pound"
                         });
                 });
 

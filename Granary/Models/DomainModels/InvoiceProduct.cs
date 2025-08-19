@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Granary.Models.DomainModels;
 
@@ -12,7 +12,7 @@ public class InvoiceProduct
 
     [Required]
 
-    public string UnitType { get; set; } = string.Empty;
+    public string UnitType { get; set; } = "-";
 
     [Required]
     public decimal UnitPrice { get; set; } = 0.0m;

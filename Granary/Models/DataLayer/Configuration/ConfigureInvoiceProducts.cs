@@ -54,12 +54,12 @@ public class ConfigureInvoiceProducts : IEntityTypeConfiguration<InvoiceProduct>
             new InvoiceProduct { InvoiceId = 3, ProductId = 6, Quantity = 12.00m, UnitType = "Ounce", UnitPrice = 0.75m },
 
             // Invoice 4
-            new InvoiceProduct { InvoiceId = 4, ProductId = 2, Quantity = 18.00m, UnitType = "Pound", UnitPrice = 1.49m },
-            new InvoiceProduct { InvoiceId = 4, ProductId = 3, Quantity = 22.00m, UnitType = "Each", UnitPrice = 1.25m },
+            new InvoiceProduct { InvoiceId = 4, ProductId = 7, Quantity = 18.00m, UnitType = "Pound", UnitPrice = 1.49m },
+            new InvoiceProduct { InvoiceId = 4, ProductId = 8, Quantity = 22.00m, UnitType = "Each", UnitPrice = 1.25m },
 
             // Invoice 5
-            new InvoiceProduct { InvoiceId = 5, ProductId = 7, Quantity = 50.00m, UnitType = "Pound", UnitPrice = 0.89m },
-            new InvoiceProduct { InvoiceId = 5, ProductId = 8, Quantity = 30.00m, UnitType = "Pound", UnitPrice = 1.10m }
+            new InvoiceProduct { InvoiceId = 5, ProductId = 9, Quantity = 50.00m, UnitType = "Pound", UnitPrice = 0.89m },
+            new InvoiceProduct { InvoiceId = 5, ProductId = 10, Quantity = 30.00m, UnitType = "Pound", UnitPrice = 1.10m }
         );
     }
 }
