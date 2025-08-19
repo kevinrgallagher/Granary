@@ -14,25 +14,6 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
         return View();
     }
 
-    // Navigate to Inventory page
-    public IActionResult Inventory()
-    {
-        // Using inventory view model for formatting and calculations
-        var inventory = context.Products
-            .Include(p => p.Category)
-            .Select(p => new InventoryViewModel
-            {
-                ProductId = p.ProductId,
-                Name = p.ProductName,
-                UnitType = p.UnitType,
-                UnitPrice = p.UnitPrice,
-                StockQuantity = p.StockQuantity,
-                CategoryName = p.Category.CategoryName
-            })
-            .ToList();
-        return View(inventory);
-    }
-
     // Navigate to Product page
     public IActionResult Product()
     {
