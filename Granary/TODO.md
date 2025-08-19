@@ -25,12 +25,12 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [x] All functionality for viewing and adding products now seems to work
 - [x] Modified invoice and addinvoice pages to show supplier name instead of id, a dropdown in case of addinvoice
 - [x] AddInvoice view should have a select list for suppliers
+- [!] Separate HomeController into separate controllers for each page
 - [ ] Populate invoice list view with invoiceproduct line items, supplier name
 - [ ] Invoice view needs a lot of functionality - display items, add items, delete items, etc.
 - [ ] AddProduct view unit type selectlist should be populated somehow, not hard-coded, I think an enumerable
 - [ ] AddProduct view unit type validation also needs to be updated, currently select list has selection by default
 - [ ] Add delete buttons, test cascade behaviors
-- [ ] Separate HomeController into separate controllers for each page
 
 # LATER
 - [ ] Implement new MiscProduct entity - will require new model, configuration, seed data, viewmodel, and view
