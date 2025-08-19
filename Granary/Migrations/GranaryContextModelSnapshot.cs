@@ -153,6 +153,9 @@ namespace Granary.Migrations
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(10, 2)");
 
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(10, 2)");
+
                     b.HasKey("InvoiceId", "ProductId");
 
                     b.HasIndex("ProductId");
@@ -164,69 +167,71 @@ namespace Granary.Migrations
                         {
                             InvoiceId = 1,
                             ProductId = 1,
-                            Quantity = 25.0m
+                            Quantity = 25.00m,
+                            UnitPrice = 2.99m
                         },
                         new
                         {
                             InvoiceId = 1,
                             ProductId = 2,
-                            Quantity = 15.0m
+                            Quantity = 15.00m,
+                            UnitPrice = 1.49m
                         },
                         new
                         {
                             InvoiceId = 2,
                             ProductId = 3,
-                            Quantity = 40.0m
+                            Quantity = 40.00m,
+                            UnitPrice = 1.25m
                         },
                         new
                         {
                             InvoiceId = 2,
                             ProductId = 4,
-                            Quantity = 20.0m
+                            Quantity = 20.00m,
+                            UnitPrice = 3.25m
                         },
                         new
                         {
                             InvoiceId = 3,
                             ProductId = 5,
-                            Quantity = 10.0m
+                            Quantity = 10.00m,
+                            UnitPrice = 1.99m
                         },
                         new
                         {
                             InvoiceId = 3,
                             ProductId = 6,
-                            Quantity = 12.0m
+                            Quantity = 12.00m,
+                            UnitPrice = 0.75m
                         },
                         new
                         {
                             InvoiceId = 4,
                             ProductId = 7,
                             Quantity = 18.00m,
-                            UnitPrice = 1.49m,
-                            UnitType = "Pound"
+                            UnitPrice = 1.49m
                         },
                         new
                         {
                             InvoiceId = 4,
                             ProductId = 8,
                             Quantity = 22.00m,
-                            UnitPrice = 1.25m,
-                            UnitType = "Each"
+                            UnitPrice = 1.25m
                         },
                         new
                         {
                             InvoiceId = 5,
                             ProductId = 9,
                             Quantity = 50.00m,
-                            UnitPrice = 0.89m,
-                            UnitType = "Pound"
+                            UnitPrice = 0.89m
                         },
                         new
                         {
                             InvoiceId = 5,
                             ProductId = 10,
                             Quantity = 30.00m,
-                            UnitPrice = 1.10m,
-                            UnitType = "Pound"
+                            UnitPrice = 1.10m
                         });
                 });
 
@@ -255,9 +260,6 @@ namespace Granary.Migrations
                     b.Property<int>("SupplierId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(10, 2)");
-
                     b.Property<string>("UnitType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -277,10 +279,9 @@ namespace Granary.Migrations
                             CategoryId = 1,
                             Description = "Small sweet tomatoes",
                             ProductName = "Cherry Tomatoes",
-                            StockQuantity = 100m,
+                            StockQuantity = 100.00m,
                             SupplierId = 4,
-                            UnitPrice = 2.99m,
-                            UnitType = "Each"
+                            UnitType = "Pound"
                         },
                         new
                         {
@@ -288,10 +289,9 @@ namespace Granary.Migrations
                             CategoryId = 1,
                             Description = "Ideal for sauces",
                             ProductName = "Roma Tomatoes",
-                            StockQuantity = 200m,
+                            StockQuantity = 200.00m,
                             SupplierId = 4,
-                            UnitPrice = 1.49m,
-                            UnitType = "Pound"
+                            UnitType = "Ounce"
                         },
                         new
                         {
@@ -299,10 +299,9 @@ namespace Granary.Migrations
                             CategoryId = 1,
                             Description = "Large slicing tomato",
                             ProductName = "Beefsteak Tomatoes",
-                            StockQuantity = 150m,
+                            StockQuantity = 150.00m,
                             SupplierId = 4,
-                            UnitPrice = 1.25m,
-                            UnitType = "Each"
+                            UnitType = "Ounce"
                         },
                         new
                         {
@@ -310,10 +309,9 @@ namespace Granary.Migrations
                             CategoryId = 2,
                             Description = "Mild and versatile",
                             ProductName = "White Mushrooms",
-                            StockQuantity = 80m,
+                            StockQuantity = 80.00m,
                             SupplierId = 3,
-                            UnitPrice = 3.25m,
-                            UnitType = "Pound"
+                            UnitType = "Each"
                         },
                         new
                         {
@@ -321,10 +319,9 @@ namespace Granary.Migrations
                             CategoryId = 2,
                             Description = "Meaty texture, great grilled",
                             ProductName = "Portobello Mushrooms",
-                            StockQuantity = 60m,
+                            StockQuantity = 60.00m,
                             SupplierId = 3,
-                            UnitPrice = 1.99m,
-                            UnitType = "Each"
+                            UnitType = "Pound"
                         },
                         new
                         {
@@ -332,10 +329,9 @@ namespace Granary.Migrations
                             CategoryId = 2,
                             Description = "Savory and rich flavor",
                             ProductName = "Shiitake Mushrooms",
-                            StockQuantity = 300m,
+                            StockQuantity = 300.00m,
                             SupplierId = 3,
-                            UnitPrice = 0.75m,
-                            UnitType = "Ounce"
+                            UnitType = "Each"
                         },
                         new
                         {
@@ -343,9 +339,8 @@ namespace Granary.Migrations
                             CategoryId = 3,
                             Description = "Common all-purpose onion",
                             ProductName = "Yellow Onions",
-                            StockQuantity = 500m,
+                            StockQuantity = 500.00m,
                             SupplierId = 5,
-                            UnitPrice = 0.89m,
                             UnitType = "Pound"
                         },
                         new
@@ -354,10 +349,9 @@ namespace Granary.Migrations
                             CategoryId = 3,
                             Description = "Colorful and sharp",
                             ProductName = "Red Onions",
-                            StockQuantity = 400m,
+                            StockQuantity = 400.00m,
                             SupplierId = 5,
-                            UnitPrice = 1.10m,
-                            UnitType = "Pound"
+                            UnitType = "Ounce"
                         },
                         new
                         {
@@ -365,20 +359,18 @@ namespace Granary.Migrations
                             CategoryId = 3,
                             Description = "Mild and sweet",
                             ProductName = "Sweet Onions",
-                            StockQuantity = 350m,
+                            StockQuantity = 350.00m,
                             SupplierId = 5,
-                            UnitPrice = 1.30m,
                             UnitType = "Pound"
                         },
                         new
                         {
                             ProductId = 10,
                             CategoryId = 3,
-                            Description = "Small and sweet, ideal roasting",
-                            ProductName = "Cippolini Onions",
-                            StockQuantity = 250m,
+                            Description = "Mild and sweet",
+                            ProductName = "Sweet Onions",
+                            StockQuantity = 50.00m,
                             SupplierId = 5,
-                            UnitPrice = 0.60m,
                             UnitType = "Each"
                         });
                 });

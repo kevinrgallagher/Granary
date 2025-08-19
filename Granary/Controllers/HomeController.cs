@@ -25,6 +25,7 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
                 ProductId = p.ProductId,
                 Name = p.ProductName,
                 UnitType = p.UnitType,
+                StockQuantity = p.StockQuantity,
                 Description = p.Description,
                 CategoryId = p.CategoryId,
                 CategoryName = p.Category.CategoryName,
@@ -65,7 +66,8 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
     {
         var vm = new AddProductViewModel
         {
-            Categories = new SelectList(context.Categories.ToList(), "CategoryId", "CategoryName")
+            Categories = new SelectList(context.Categories.ToList(), "CategoryId", "CategoryName"),
+            Suppliers = new SelectList(context.Suppliers.ToList(), "SupplierId", "SupplierName")
         };
         return View(vm);
     }

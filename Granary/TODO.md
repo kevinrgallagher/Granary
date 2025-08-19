@@ -24,8 +24,12 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [x] Create a new migration and update the database - tested clean
 - [x] Update product and invoiceproduct models to reflect updated schema
 - [x] Update configuration files and seed data to reflect updated schema
-- [ ] Update ProductViewModel, controller, and view to allow Product page to still display unit and price
-- [ ] Update AddProduct view to allow for selecting a supplier (required)
+- [x] Update ProductViewModel, controller, and view to allow Product page to still display unit and price
+- [x] Update AddProduct view to allow for selecting a supplier (required)
+- [x] Combined inventory and product views into a single view
+- [x] Product model now owns unit type
+- [x] Invoiceproduct model still owns price per unit
+- [x] All functionality for viewing and adding products now seems to work
 - [ ] Implement new MiscProduct entity
 - [ ] Implement UI changes for MiscProduct - requires a separate view, controller, etc.
 
