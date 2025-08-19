@@ -6,14 +6,18 @@ namespace Granary.Models.DomainModels;
 public class Product
 {
     public int ProductId { get; set; } // Primary key, foreign key to the three join tables
+
+    [Required]
     public string ProductName { get; set; } = string.Empty;
 
-    [Range(1, int.MaxValue, ErrorMessage = "Please select a category.")]
+    [Range(1, int.MaxValue, ErrorMessage = "The Category field is required.")]
     public int CategoryId { get; set; } // Foreign key to Category
 
+    [Range(1, int.MaxValue, ErrorMessage = "The Supplier field is required.")]
     public int SupplierId { get; set; } // Foreign key to Supplier
 
-    public string UnitType { get; set; } = "-";
+    [Required]
+    public string UnitType { get; set; } = string.Empty;
 
     public decimal StockQuantity { get; set; }
 
