@@ -6,7 +6,7 @@
  * ----------------------------------------------------------------------------
 *@
 
-@model Invoice
+@model AddInvoiceViewModel
 @{
     ViewData["Title"] = "Add Invoice";
 }
@@ -19,43 +19,45 @@
 @* Input Form*@
 <form asp-action="AddInvoice" asp-controller="Home" method="post">
     <div class="row mb-3">
-        <label asp-for="SupplierId" class="col-sm-2 col-form-label"></label>
+        <label asp-for="Invoice.SupplierId" class="col-sm-2 col-form-label">Supplier</label>
         <div class="col-sm-10">
-            <input asp-for="SupplierId" class="form-control" />
-            <span asp-validation-for="SupplierId" class="text-danger"></span>
+            <select asp-for="Invoice.SupplierId" class="form-select" asp-items="Model.Suppliers">
+                <option value="0">Select Supplier</option>
+            </select>
+            <span asp-validation-for="Invoice.SupplierId" class="text-danger"></span>
         </div>
     </div>
     <div class="row mb-3">
-		<label asp-for="InvoiceNumber" class="col-sm-2 col-form-label"></label>
+		<label asp-for="Invoice.InvoiceNumber" class="col-sm-2 col-form-label"></label>
 		<div class="col-sm-10">
-			<input asp-for="InvoiceNumber" class="form-control" />
-			<span asp-validation-for="InvoiceNumber" class="text-danger"></span>
+			<input asp-for="Invoice.InvoiceNumber" class="form-control" />
+			<span asp-validation-for="Invoice.InvoiceNumber" class="text-danger"></span>
 		</div>
     </div>
     <div class="row mb-3">
-        <label asp-for="InvoiceDate" class="col-sm-2 col-form-label"></label>
+        <label asp-for="Invoice.InvoiceDate" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
-            <input asp-for="InvoiceDate" class="form-control" type="date" />
-            <span asp-validation-for="InvoiceDate" class="text-danger"></span>
+            <input asp-for="Invoice.InvoiceDate" class="form-control" type="date" />
+            <span asp-validation-for="Invoice.InvoiceDate" class="text-danger"></span>
         </div>
     </div>
     <div class="row mb-3">
-		<label asp-for="DueDate" class="col-sm-2 col-form-label"></label>
+		<label asp-for="Invoice.DueDate" class="col-sm-2 col-form-label"></label>
 		<div class="col-sm-10">
-			<input asp-for="DueDate" class="form-control" type="date" />
-			<span asp-validation-for="DueDate" class="text-danger"></span>
+			<input asp-for="Invoice.DueDate" class="form-control" type="date" />
+			<span asp-validation-for="Invoice.DueDate" class="text-danger"></span>
 		</div>
     </div>
     <div class="row mb-3">
-		<label asp-for="Status" class="col-sm-2 col-form-label"></label>
+		<label asp-for="Invoice.Status" class="col-sm-2 col-form-label"></label>
 		<div class="col-sm-10">
-			<select asp-for="Status" class="form-select">
+			<select asp-for="Invoice.Status" class="form-select">
 				<option value="">Select Status</option>
 				<option value="Pending">Pending</option>
 				<option value="Paid">Paid</option>
 				<option value="Overdue">Overdue</option>
 			</select>
-			<span asp-validation-for="Status" class="text-danger"></span>
+			<span asp-validation-for="Invoice.Status" class="text-danger"></span>
 		</div>
     </div>
     

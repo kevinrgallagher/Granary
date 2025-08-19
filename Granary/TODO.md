@@ -4,15 +4,7 @@ Chefs that are used to paper and pencil don't want to switch to a data-heavy app
 These are the target users, so the application should be lightweight and easy to use
 This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 
-
-
-
-# BEFORE ANYTHING ELSE
- The list has grown very long and intimidating, so let's pick something to start with
- Review our models, fix our schema, update the ERD, etc.
- In other words, we know better now what our database should look like, so let's fix it
- Then we can move on to adding functionality and making things work nicer
- On top of that, we have to start version control, right now, for tons of reasons
+# TODO
 - [x] Get on GitHub, establish version control, and start committing code
 - [x] Resolve issue with Product, Supplier, and ProductSupplier models
 - [x] We have another issue with these. ProductSupplier is now a useless entity
@@ -30,10 +22,23 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [x] Product model now owns unit type
 - [x] Invoiceproduct model still owns price per unit
 - [x] All functionality for viewing and adding products now seems to work
-- [ ] Implement new MiscProduct entity
-- [ ] Implement UI changes for MiscProduct - requires a separate view, controller, etc.
+- [x] Modified invoice and addinvoice pages to show supplier name instead of id, a dropdown in case of addinvoice
+- [x] AddInvoice view should have a select list for suppliers
+- [ ] Populate invoice list view with invoiceproduct line items, supplier name
+- [ ] Invoice view needs a lot of functionality - display items, add items, delete items, etc.
+- [ ] AddProduct view unit type selectlist should be populated somehow, not hard-coded, I think an enumerable
+- [ ] Add delete buttons, test cascade behaviors
+- [ ] Separate HomeController into separate controllers for each page
 
-# TODO
+# LATER
+- [ ] Implement new MiscProduct entity - will require new model, configuration, seed data, viewmodel, and view
+- [ ] This might be a good time to learn about unit tests, it's becoming cumbersome to test the app
+- [ ] Implement views for modifying products, suppliers, invoices, recipes
+- [ ] Check local and serverside validation status for all models
+- [ ] Populate recipe list view with recipeproduct line items
+- [ ] Account for historical data
+
+# OLD TODO LIST
 - [x] Scaffold views, controllers
 - [x] Imported entity framework packages
 - [x] Added using statements and performed basic setup in program.cs
@@ -66,37 +71,18 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [x] Add more validation
 - [x] AddProduct view category selectlist should be populated from category model
 - [x] AddProduct Category selectlist is now reloaded upon validation failure
-- [ ] AddProduct view unit type selectlist should be populated somehow, not hard-coded, new model maybe
-- [ ] AddInvoice view should have a select list for suppliers
-- [ ] Implement views for updating products, suppliers, invoices, recipes
-- [ ] Implement buttons for deleting products, suppliers, invoices, recipes
 - [x] Product and inventory views should display category name, not Id
 - [x] Establish cascade and required behavior for supplier, invoice, invoiceproduct, and product
 - [x] Changed all configuration files, Fluent for required relationships, composite keys, and cascade delete behavior
 - [x] Modified gitignore file for common security concerns
 - [x] New migration, updated database, sanity check successful
 - [x] Test the app again to make sure we didn't break anything - add product failed, other add pages succeed
-- [ ] This might be a good time to learn about unit tests, it's becoming cumbersome to test the app
-- [ ] This would also be a good time to add delete buttons, so we can test cascade behaviors
-
-# LATER ON
 - [x] Reconcile navbar with views 
 - [x] Add seed data to dbcontext
 - [x] Configuration files for each model
 - [x] Remove cascading delete for certain models
-- [ ] Account for historical data
 - [x] Addproduct, recipe, invoice, supplier, category should be pop-up pages instead of embedded in view
-- [ ] Separate HomeController into separate controllers for each view
-- [ ] Remove IDs from the displayed tables, but leave for now for ease of development
-- [ ] Add local and server-side validation to all models
-- [ ] Populate invoice list view with invoiceproduct line items, supplier name
-- [ ] Populate recipe list view with recipeproduct line items
-- [ ] Forms should return to the same form with the same information if validation fails
-- [ ] Forms should return to the list view for that model if validation succeeds
-- [ ] Fix datetime format in invoice list view, fix datetime input box in add invoice view
-- [ ] Invoice view needs a lot of functionality - display items, add items, delete items, etc.
-- [ ] Add 'search by Id' ala Chapter something from murach's
-- [ ] Unit price and total value should be in either inventory or product views, not both
+- [x] Unit price and total value should be in either inventory or product views, not both
 
 # REVIEW MATERIAL
 - [x] Navigation properties, under-the-hood explanation
@@ -105,9 +91,12 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [ ] Grid views
 - [ ] Repositories
 - [ ] Query builders
-- [ ] Select lists populated from database
+- [ ] Search-by-ID
+- [ ] Paging
+- [ ] Togglable hide-column buttons
+- [x] Select lists populated from database
 - [x] Get on github and start version controlling and committing
-- [ ] Look into Copilot - I think there's a full agent available - Github Models Hub?
+- [x] Look into Copilot
 
 # MAJOR BLOCKER DATABASE REMODEL 8/18/25
 Problem: What if a product has multiple suppliers, each with a different price?
