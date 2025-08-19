@@ -11,10 +11,6 @@ public class InvoiceProduct
     public int ProductId { get; set; } // Composite key two, foreign key to Product
 
     [Required]
-
-    public string UnitType { get; set; } = "-";
-
-    [Required]
     public decimal UnitPrice { get; set; } = 0.0m;
 
     public decimal Quantity { get; set; }

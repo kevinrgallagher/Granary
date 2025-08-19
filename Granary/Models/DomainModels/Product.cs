@@ -15,12 +15,14 @@ public class Product
 
     public string ProductName { get; set; } = string.Empty;
 
+    public string UnitType { get; set; } = "-";
+
     public decimal StockQuantity { get; set; }
 
     public string Description { get; set; } = string.Empty;
 
     public Supplier? Supplier { get; set; } // Navigation property for Suppliers
-    public ICollection<InvoiceProduct>? InvoiceProducts { get; set; } // Navigation property for InvoiceProducts
+    public ICollection<InvoiceProduct> InvoiceProducts { get; set; } = new List<InvoiceProduct>(); // Navigation property for InvoiceProducts
     public ICollection<RecipeProduct>? RecipeProducts { get; set; } // Navigation property for RecipeProducts
 
     [ValidateNever]

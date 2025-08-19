@@ -44,10 +44,15 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
                 ProductId = p.ProductId,
                 Name = p.ProductName,
                 UnitType = p.UnitType,
-                UnitPrice = p.UnitPrice,
                 Description = p.Description,
                 CategoryId = p.CategoryId,
-                CategoryName = p.Category.CategoryName
+                CategoryName = p.Category.CategoryName,
+                // Average of most recent five unit prices from associated invoice lines
+                AverageUnitPrice = p.InvoiceProducts
+                    .OrderByDescending(ip => ip.Invoice.InvoiceDate)
+                    .Select(ip => (decimal?)ip.UnitPrice) // cast so Average() works on empty
+                    .Take(5)
+                    .Average() ?? 0m
             })
             .ToList();
         return View(productList);
