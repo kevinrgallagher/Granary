@@ -1,18 +1,28 @@
-﻿namespace Granary.Models.ViewModels;
+namespace Granary.Models.ViewModels;
 
 public class ProductViewModel
 {
     public int ProductId { get; set; }
     public string Name { get; set; } = string.Empty;
     public string UnitType { get; set; } = string.Empty;
-    public decimal UnitPrice { get; set; }
     public string Description { get; set; } = string.Empty;
     public int CategoryId { get; set; }
+    public decimal StockQuantity { get; set; }
 
-    // For populating product list UI with category name
     public string CategoryName { get; set; } = string.Empty;
 
-    // Formatted string for displaying unit price without unnecessary trailing zeroes
-    public string FormattedUnitPrice => UnitPrice.ToString("C2");
-}
+    public decimal AverageUnitPrice { get; set; }
 
+    public decimal TotalValue => AverageUnitPrice * StockQuantity;
+
+    public string FormattedStockQuantity =>
+        StockQuantity % 1 == 0m
+            ? StockQuantity.ToString("0")
+            : StockQuantity.ToString("0.##");
+
+    public string FormattedAverageUnitPrice =>
+        AverageUnitPrice <= 0 ? "—" : AverageUnitPrice.ToString("C2");
+
+    public string FormattedTotalValue =>
+        AverageUnitPrice <= 0 ? "—" : TotalValue.ToString("C2");
+}

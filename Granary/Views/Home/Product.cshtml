@@ -23,10 +23,12 @@
         <tr>
             <th>ProductID</th>
             <th>Name</th>
-            <th>UnitType</th>
-            <th>UnitPrice</th>
-            <th>Description</th>
             <th>Category</th>
+            <th class="pe-1">Description</th>
+            <th class="pe-4">Unit</th>
+            <th>On-Hand</th>
+            <th>Average Price</th>
+            <th>Total Value</th>
         </tr>
     </thead>
     <tbody>
@@ -35,10 +37,12 @@
             <tr>
                 <td>@product.ProductId</td>
                 <td>@product.Name</td>
-                <td>@product.UnitType</td>
-                <td>@product.FormattedUnitPrice</td>
-                <td>@product.Description</td>
                 <td>@product.CategoryName</td>
+                <td class="pe-1">@product.Description</td>
+                <td class="pe-4">@product.UnitType</td>
+                <td>@product.FormattedStockQuantity</td>
+                <td>@product.FormattedAverageUnitPrice</td>
+                <td>@product.FormattedTotalValue</td>
             </tr>
         }
     </tbody>

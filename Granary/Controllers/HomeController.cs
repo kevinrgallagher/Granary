@@ -8,39 +8,17 @@ using Microsoft.EntityFrameworkCore;
 namespace Granary.Controllers;
 
 public class HomeController(GranaryContext context) : Controller // Using new C# 12 primary constructor
+
 {
+    // Navigate to Index page
+    [HttpGet]
     public IActionResult Index()
     {
         return View();
     }
 
-    // Navigate to Inventory page
-    public IActionResult Inventory()
-    {
-        var inventory = context.Products
-            .Include(p => p.Category)
-            .Select(p => new InventoryViewModel
-            {
-                ProductId = p.ProductId,
-                Name = p.ProductName,
-                UnitType = p.InvoiceProducts!
-                    .OrderByDescending(ip => ip.Invoice.InvoiceDate)
-                    .Select(ip => ip.UnitType)
-                    .FirstOrDefault() ?? string.Empty,
-                UnitPrice = p.InvoiceProducts!
-                    .OrderByDescending(ip => ip.Invoice.InvoiceDate)
-                    .Select(ip => (decimal?)ip.UnitPrice)
-                    .FirstOrDefault() ?? 0m,
-                StockQuantity = p.StockQuantity,
-                CategoryName = p.Category.CategoryName
-            })
-            .AsNoTracking()
-            .ToList();
-
-        return View(inventory);
-    }
-
     // Navigate to Product page
+    [HttpGet]
     public IActionResult Product()
     {
         var productList = context.Products
@@ -49,17 +27,17 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
             {
                 ProductId = p.ProductId,
                 Name = p.ProductName,
-                UnitType = p.InvoiceProducts!
-                    .OrderByDescending(ip => ip.Invoice.InvoiceDate)
-                    .Select(ip => ip.UnitType)
-                    .FirstOrDefault() ?? string.Empty,
-                UnitPrice = p.InvoiceProducts!
-                    .OrderByDescending(ip => ip.Invoice.InvoiceDate)
-                    .Select(ip => (decimal?)ip.UnitPrice)
-                    .FirstOrDefault() ?? 0m,
+                UnitType = p.UnitType,
+                StockQuantity = p.StockQuantity,
                 Description = p.Description,
                 CategoryId = p.CategoryId,
-                CategoryName = p.Category.CategoryName
+                CategoryName = p.Category.CategoryName,
+                // Average of most recent five unit prices from associated invoice lines
+                AverageUnitPrice = p.InvoiceProducts
+                    .OrderByDescending(ip => ip.Invoice.InvoiceDate)
+                    .Select(ip => (decimal?)ip.UnitPrice) // cast so Average() works on empty
+                    .Take(5)
+                    .Average() ?? 0m
             })
             .AsNoTracking()
             .ToList();
@@ -68,6 +46,7 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
     }
 
     // Navigate to Supplier page
+    [HttpGet]
     public IActionResult Supplier()
     {
         var suppliers = context.Suppliers.ToList();
@@ -75,6 +54,7 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
     }
 
     // Navigate to Recipe page
+    [HttpGet]
     public IActionResult Recipe()
     {
         var recipes = context.Recipes.ToList();
@@ -82,36 +62,47 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
     }
 
     // Navigate to Invoice page
+    [HttpGet]
     public IActionResult Invoice()
     {
-        var invoices = context.Invoices.ToList();
+        var invoices = context.Invoices
+            .Include(i => i.Supplier)
+            .ToList();
         return View(invoices);
     }
 
+    // Navigate to AddProduct page, populate the dropdowns
     [HttpGet]
     public IActionResult AddProduct()
     {
         var vm = new AddProductViewModel
         {
             Categories = new SelectList(context.Categories.ToList(), "CategoryId", "CategoryName"),
-            Suppliers = new SelectList(context.Suppliers.ToList(), "SupplierId", "SupplierName"),
+            Suppliers = new SelectList(context.Suppliers.ToList(), "SupplierId", "SupplierName")
+        };
+        return View(vm);
+    }
+
+    // Navigate to AddInvoice page, populate the supplier dropdown
+    [HttpGet]
+    public IActionResult AddInvoice()
+    {
+        var vm = new AddInvoiceViewModel
+        {
+            Suppliers = new SelectList(context.Suppliers.ToList(), "SupplierId", "SupplierName")
         };
         return View(vm);
     }
 
     // Navigate to AddSupplier page
+    [HttpGet]
     public IActionResult AddSupplier()
     {
         return View();
     }
 
-    // Navigate to AddInvoice page
-    public IActionResult AddInvoice()
-    {
-        return View();
-    }
-
     // Navigate to AddRecipe page
+    [HttpGet]
     public IActionResult AddRecipe()
     {
         return View();
@@ -132,6 +123,22 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
             vm.Categories = new SelectList(context.Categories.ToList(), "CategoryId", "CategoryName");
             vm.Suppliers = new SelectList(context.Suppliers.ToList(), "SupplierId", "SupplierName");
         return View(vm);        
+    }
+
+    // Form submission for adding an invoice
+    [HttpPost]
+    public IActionResult AddInvoice(AddInvoiceViewModel vm)
+    {
+        if (ModelState.IsValid)
+        {
+            context.Invoices.Add(vm.Invoice);
+            context.SaveChanges();
+            return RedirectToAction("Invoice");
+        }
+
+        // If invalid, re-populate the suppliers dropdown and return to the view
+        vm.Suppliers = new SelectList(context.Suppliers.ToList(), "SupplierId", "SupplierName");
+        return View(vm);
     }
 
     // Form submission for adding a supplier
@@ -157,32 +164,6 @@ public class HomeController(GranaryContext context) : Controller // Using new C#
 
         // If model state is invalid, redisplay the form with validation errors
         return View("Supplier", supplier);
-    }
-
-    // Form submission for adding an invoice
-    [HttpPost]
-    public IActionResult AddInvoice(Invoice invoice)
-    {
-        if (ModelState.IsValid)
-        {
-            var inv = new Invoice
-            {
-                InvoiceId = invoice.InvoiceId,
-                SupplierId = invoice.SupplierId,
-                InvoiceNumber = invoice.InvoiceNumber,
-                InvoiceDate = invoice.InvoiceDate,
-                DueDate = invoice.DueDate,
-                Status = invoice.Status,
-            };
-
-            context.Invoices.Add(inv);
-            context.SaveChanges();
-
-            return RedirectToAction("Index");
-        }
-
-        // If model state is invalid, redisplay the form with validation errors
-        return View("Invoice", invoice);
     }
 
     // Form submission for adding a recipe

@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Granary.Models.DomainModels;
 
@@ -22,6 +22,8 @@ public class Invoice
     [Required]
     public string Status { get; set; } = "Pending"; // Default status is Pending
 
-    public ICollection<InvoiceProduct>? InvoiceProducts { get; set; } // Navigation property for InvoiceProducts
     public Supplier? Supplier { get; set; } // Navigation property for Supplier
+
+    public ICollection<InvoiceProduct>? InvoiceProducts { get; set; } // Navigation property for InvoiceProducts
+
 }

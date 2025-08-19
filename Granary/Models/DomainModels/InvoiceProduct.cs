@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Granary.Models.DomainModels;
 
@@ -9,10 +9,6 @@ public class InvoiceProduct
 
     [Required]
     public int ProductId { get; set; } // Composite key two, foreign key to Product
-
-    [Required]
-
-    public string UnitType { get; set; } = string.Empty;
 
     [Required]
     public decimal UnitPrice { get; set; } = 0.0m;

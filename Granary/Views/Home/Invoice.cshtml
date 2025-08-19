@@ -22,11 +22,11 @@
 <table class="table table-striped table-sm">
     <thead class="bg-dark text-white">
         <tr>
-            <th>InvoiceId</th>
-            <th>SupplierId</th>
-            <th>InvoiceDate</th>
-            <th>InvoiceNumber</th>
-            <th>DueDate</th>
+            <th>Invoice ID</th>
+            <th>Invoice Number</th>
+            <th>Supplier</th>
+            <th>Invoice Date</th>
+            <th>Due Date</th>
             <th>Status</th>
         </tr>
     </thead>
@@ -35,8 +35,8 @@
         {
             <tr>
                 <td>@invoice.InvoiceId</td>
-                <td>@invoice.SupplierId</td>
                 <td>@invoice.InvoiceNumber</td>
+                <td>@invoice.Supplier?.SupplierName</td>
                 <td>@invoice.InvoiceDate.ToString("MM/dd/yyyy")</td>
                 <td>@invoice.DueDate.ToString("MM/dd/yyyy")</td>
                 <td>@invoice.Status</td>
