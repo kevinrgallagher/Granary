@@ -25,12 +25,15 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [x] All functionality for viewing and adding products now seems to work
 - [x] Modified invoice and addinvoice pages to show supplier name instead of id, a dropdown in case of addinvoice
 - [x] AddInvoice view should have a select list for suppliers
-- [!] Separate HomeController into separate controllers for each page
+- [ ] Separate HomeController into separate controllers for each page
+- [ ] Consider that we may be able to add in the supplierproduct table once again, now that unit price is owned by invoiceproduct
 - [ ] Populate invoice list view with invoiceproduct line items, supplier name
 - [ ] Invoice view needs a lot of functionality - display items, add items, delete items, etc.
 - [ ] AddProduct view unit type selectlist should be populated somehow, not hard-coded, I think an enumerable
 - [ ] AddProduct view unit type validation also needs to be updated, currently select list has selection by default
 - [ ] Add delete buttons, test cascade behaviors
+- [ ] 'On-Hand: 100lb' vs 'Pound, 100, On-Hand'
+- [ ] 'Average Price: $2.99/lb.' vs 'Pound, 100, $2.99'
 
 # LATER
 - [ ] Implement new MiscProduct entity - will require new model, configuration, seed data, viewmodel, and view
@@ -102,9 +105,9 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 
 # MAJOR BLOCKER DATABASE REMODEL 8/18/25
 Problem: What if a product has multiple suppliers, each with a different price?
-Solution: The solution we've settled on is to create a new business rule: each product used in
-a recipe will have one and only one 'default' supplier. If a manager needs to purchase an item or
-product from a grocery store or other 'alternative' supplier, they can do so, but they add this 
+Solution: The solution we've settled on is to create a new business rule - each product used in
+a recipe will have one and only one default supplier. If a manager needs to purchase a product 
+from a grocery store or other alternative supplier, they can do so, but they add this 
 as a separate 'misc product' which is not tracked the same as our other products. This means we 
 need to give these misc products their own entity - they don't need to be related to an existing 
 supplier, but we still need to track their name/description, unit type, unit price, and quantity.
@@ -115,10 +118,7 @@ Thus, if they see 'missing ten pounds of roma tomatoes' they can match this shor
 miscellaneous product '10 lbs of tomatoes purchased from local supplier at x price/unit by y manager.' 
 Additionally, a report could be made that tracks how much money was 'lost' or 'gained' by using these 
 miscellaneous products in place of our standard suppliers. To go a step further, we could add a UI that 
-let's a manager actually check in these misc products in place of regular products so that a report can 
-be generated that shows we are not 'missing product' as a result of waste or spoilage but rather due to 
-a discrepency between official products and misc products. This way, managers know we may have spent 
-more than we wanted to, but we aren't actually missing anything.
+let's a manager actually check in these misc products in place of regular products.
 
 # MAJOR BLOCKER BUXFIX 6/5/2025
 This is a review of the steps we had to take to fix a major bug that was preventing us from adding products.
