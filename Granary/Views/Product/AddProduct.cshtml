@@ -9,7 +9,7 @@
 </div>
 
 @* Input Form *@
-<form asp-action="AddProduct" asp-controller="Home" method="post">
+<form asp-action="AddProduct" asp-controller="Product" method="post">
     <div class="row mb-3">
         <label asp-for="Product.ProductName" class="col-sm-2 col-form-label">Name</label>
         <div class="col-sm-10">
@@ -74,7 +74,7 @@
             <button type="submit" class="btn btn-primary">Add New Product</button>
         </div>
         <div class="col-auto">
-            <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Cancel</a>
+            <a asp-action="Product" asp-controller="Home" class="btn btn-secondary">Cancel</a>
         </div>
     </div>
 </form>
