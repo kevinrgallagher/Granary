@@ -1,13 +1,14 @@
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
 namespace Granary.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedUnitTypeModel : Migration
+    public partial class UnitTypeConfig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -62,6 +63,7 @@ namespace Granary.Migrations
                 {
                     UnitTypeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Abbreviation = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
@@ -216,13 +218,13 @@ namespace Granary.Migrations
 
             migrationBuilder.InsertData(
                 table: "UnitTypes",
-                columns: new[] { "UnitTypeId", "Abbreviation", "IsActive", "Name" },
+                columns: new[] { "UnitTypeId", "Abbreviation", "IsActive", "Name", "ProductId" },
                 values: new object[,]
                 {
-                    { 1, "oz", true, "Ounce" },
-                    { 2, "lb", true, "Pound" },
-                    { 3, "gal", true, "Gallon" },
-                    { 4, "ea", true, "Each" }
+                    { 1, "oz", true, "Ounce", 0 },
+                    { 2, "lb", true, "Pound", 0 },
+                    { 3, "gal", true, "Gallon", 0 },
+                    { 4, "ea", true, "Each", 0 }
                 });
 
             migrationBuilder.InsertData(

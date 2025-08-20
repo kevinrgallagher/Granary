@@ -36,6 +36,14 @@ internal class ConfigureProducts : IEntityTypeConfiguration<Product>
               .IsRequired()
               .OnDelete(DeleteBehavior.Restrict);
 
+        // Product (dependent) → UnitType (principal), required FK on unitType
+        // Delete behavior: Restrict — cannot delete a UnitType while Products reference it
+        entity.HasOne(p => p.UnitType)
+               .WithMany(u => u.Products)
+               .HasForeignKey(p => p.UnitTypeId)
+               .IsRequired()
+               .OnDelete(DeleteBehavior.Restrict);
+
         entity.HasData(
             new Product { ProductId = 1, ProductName = "Cherry Tomatoes", UnitTypeId = 1, StockQuantity = 100.00m, Description = "Small sweet tomatoes", CategoryId = 1, SupplierId = 4 },
             new Product { ProductId = 2, ProductName = "Roma Tomatoes", UnitTypeId = 2, StockQuantity = 200.00m, Description = "Ideal for sauces", CategoryId = 1, SupplierId = 4 },

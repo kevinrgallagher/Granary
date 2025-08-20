@@ -42,6 +42,7 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [ ] Check local and serverside validation status for all models
 - [ ] Populate recipe list view with recipeproduct line items
 - [ ] Account for historical data
+- [ ] Review Fluent API config to remove mirrored configurations and ensure dependent entities hold the config
 
 # OLD TODO LIST
 - [x] Scaffold views, controllers

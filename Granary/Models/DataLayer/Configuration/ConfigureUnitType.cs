@@ -10,10 +10,9 @@ public class ConfigureUnitTypes : IEntityTypeConfiguration<UnitType>
     {
         // Establish required relationship between unit type and product, cannot delete unit type if products exist
         entity.HasMany(u => u.Products)
-              .WithOne(p => p.UnitType)
-              .HasForeignKey(p => p.UnitTypeId)
-              .IsRequired()
-              .OnDelete(DeleteBehavior.Restrict);
+               .WithOne(p => p.UnitType)
+               .HasForeignKey(p => p.UnitTypeId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         // Seed data
         entity.HasData(

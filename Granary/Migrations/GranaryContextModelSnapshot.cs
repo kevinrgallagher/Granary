@@ -590,6 +590,9 @@ namespace Granary.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
                     b.HasKey("UnitTypeId");
 
                     b.ToTable("UnitTypes");
@@ -600,28 +603,32 @@ namespace Granary.Migrations
                             UnitTypeId = 1,
                             Abbreviation = "oz",
                             IsActive = true,
-                            Name = "Ounce"
+                            Name = "Ounce",
+                            ProductId = 0
                         },
                         new
                         {
                             UnitTypeId = 2,
                             Abbreviation = "lb",
                             IsActive = true,
-                            Name = "Pound"
+                            Name = "Pound",
+                            ProductId = 0
                         },
                         new
                         {
                             UnitTypeId = 3,
                             Abbreviation = "gal",
                             IsActive = true,
-                            Name = "Gallon"
+                            Name = "Gallon",
+                            ProductId = 0
                         },
                         new
                         {
                             UnitTypeId = 4,
                             Abbreviation = "ea",
                             IsActive = true,
-                            Name = "Each"
+                            Name = "Each",
+                            ProductId = 0
                         });
                 });
 
