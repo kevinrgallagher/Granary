@@ -1,14 +1,13 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
 namespace Granary.Migrations
 {
     /// <inheritdoc />
-    public partial class New : Migration
+    public partial class AddedUnitTypeModel : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -58,6 +57,21 @@ namespace Granary.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UnitTypes",
+                columns: table => new
+                {
+                    UnitTypeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Abbreviation = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UnitTypes", x => x.UnitTypeId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Invoices",
                 columns: table => new
                 {
@@ -86,12 +100,12 @@ namespace Granary.Migrations
                 {
                     ProductId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     SupplierId = table.Column<int>(type: "int", nullable: false),
-                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UnitType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UnitTypeId = table.Column<int>(type: "int", nullable: false),
                     StockQuantity = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -107,6 +121,12 @@ namespace Granary.Migrations
                         column: x => x.SupplierId,
                         principalTable: "Suppliers",
                         principalColumn: "SupplierId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_UnitTypes_UnitTypeId",
+                        column: x => x.UnitTypeId,
+                        principalTable: "UnitTypes",
+                        principalColumn: "UnitTypeId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -195,6 +215,17 @@ namespace Granary.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "UnitTypes",
+                columns: new[] { "UnitTypeId", "Abbreviation", "IsActive", "Name" },
+                values: new object[,]
+                {
+                    { 1, "oz", true, "Ounce" },
+                    { 2, "lb", true, "Pound" },
+                    { 3, "gal", true, "Gallon" },
+                    { 4, "ea", true, "Each" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Invoices",
                 columns: new[] { "InvoiceId", "DueDate", "InvoiceDate", "InvoiceNumber", "Status", "SupplierId" },
                 values: new object[,]
@@ -208,19 +239,19 @@ namespace Granary.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductId", "CategoryId", "Description", "ProductName", "StockQuantity", "SupplierId", "UnitType" },
+                columns: new[] { "ProductId", "CategoryId", "Description", "ProductName", "StockQuantity", "SupplierId", "UnitTypeId" },
                 values: new object[,]
                 {
-                    { 1, 1, "Small sweet tomatoes", "Cherry Tomatoes", 100.00m, 4, "Pound" },
-                    { 2, 1, "Ideal for sauces", "Roma Tomatoes", 200.00m, 4, "Ounce" },
-                    { 3, 1, "Large slicing tomato", "Beefsteak Tomatoes", 150.00m, 4, "Ounce" },
-                    { 4, 2, "Mild and versatile", "White Mushrooms", 80.00m, 3, "Each" },
-                    { 5, 2, "Meaty texture, great grilled", "Portobello Mushrooms", 60.00m, 3, "Pound" },
-                    { 6, 2, "Savory and rich flavor", "Shiitake Mushrooms", 300.00m, 3, "Each" },
-                    { 7, 3, "Common all-purpose onion", "Yellow Onions", 500.00m, 5, "Pound" },
-                    { 8, 3, "Colorful and sharp", "Red Onions", 400.00m, 5, "Ounce" },
-                    { 9, 3, "Mild and sweet", "Sweet Onions", 350.00m, 5, "Pound" },
-                    { 10, 3, "Mild and sweet", "Sweet Onions", 50.00m, 5, "Each" }
+                    { 1, 1, "Small sweet tomatoes", "Cherry Tomatoes", 100.00m, 4, 1 },
+                    { 2, 1, "Ideal for sauces", "Roma Tomatoes", 200.00m, 4, 2 },
+                    { 3, 1, "Large slicing tomato", "Beefsteak Tomatoes", 150.00m, 4, 3 },
+                    { 4, 2, "Mild and versatile", "White Mushrooms", 80.00m, 3, 4 },
+                    { 5, 2, "Meaty texture, great grilled", "Portobello Mushrooms", 60.00m, 3, 2 },
+                    { 6, 2, "Savory and rich flavor", "Shiitake Mushrooms", 300.00m, 3, 1 },
+                    { 7, 3, "Common all-purpose onion", "Yellow Onions", 500.00m, 5, 3 },
+                    { 8, 3, "Colorful and sharp", "Red Onions", 400.00m, 5, 2 },
+                    { 9, 3, "Mild and sweet", "Sweet Onions", 350.00m, 5, 3 },
+                    { 10, 3, "Mild and sweet", "Sweet Onions", 50.00m, 5, 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -277,6 +308,11 @@ namespace Granary.Migrations
                 column: "SupplierId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_UnitTypeId",
+                table: "Products",
+                column: "UnitTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RecipeIngredients_ProductId",
                 table: "RecipeIngredients",
                 column: "ProductId");
@@ -305,6 +341,9 @@ namespace Granary.Migrations
 
             migrationBuilder.DropTable(
                 name: "Suppliers");
+
+            migrationBuilder.DropTable(
+                name: "UnitTypes");
         }
     }
 }

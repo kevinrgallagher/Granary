@@ -46,7 +46,7 @@ public class SupplierController(GranaryContext context) : Controller // Using ne
         }
 
         // If model state is invalid, redisplay the form with validation errors
-        return View("Supplier", supplier);
+        return View("AddSupplier", supplier);
     }
 }
 

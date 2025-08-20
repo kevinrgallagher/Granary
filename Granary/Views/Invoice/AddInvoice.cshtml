@@ -17,7 +17,7 @@
 </div>
 
 @* Input Form*@
-<form asp-action="AddInvoice" asp-controller="Home" method="post">
+<form asp-action="AddInvoice" asp-controller="Invoice" method="post">
         <div class="row mb-3">
 		<label asp-for="Invoice.InvoiceNumber" class="col-sm-2 col-form-label"></label>
 		<div class="col-sm-10">
@@ -67,7 +67,7 @@
             <button type="submit" class="btn btn-primary">Add Invoice</button>
         </div>
         <div class="col-auto">
-            <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Cancel</a>
+            <a asp-action="Index" asp-controller="Invoice" class="btn btn-secondary">Cancel</a>
         </div>
     </div>
 </form>

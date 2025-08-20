@@ -39,16 +39,12 @@
     </div>
 
     <div class="row mb-3">
-        <label asp-for="Product.UnitType" class="col-sm-2 col-form-label">Unit Type</label>
+        <label asp-for="Product.UnitTypeId" class="col-sm-2 col-form-label">Unit Type</label>
         <div class="col-sm-10">
-            <select asp-for="Product.UnitType" class="form-select">
-                <option value="0">Select Unit Type</option>
-                <option value="1">Ounce</option>
-				<option value="2">Pound</option>
-				<option value="3">Gallon</option>
-                <option value="4">Each</option>
+            <select asp-for="Product.UnitTypeId" class="form-select" asp-items="Model.UnitTypes">
+                <option value="0">Select Category</option>
             </select>
-            <span asp-validation-for="Product.UnitType" class="text-danger"></span>
+            <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
         </div>
     </div>
 
@@ -74,7 +70,7 @@
             <button type="submit" class="btn btn-primary">Add New Product</button>
         </div>
         <div class="col-auto">
-            <a asp-action="Product" asp-controller="Home" class="btn btn-secondary">Cancel</a>
+            <a asp-action="Index" asp-controller="Product" class="btn btn-secondary">Cancel</a>
         </div>
     </div>
 </form>

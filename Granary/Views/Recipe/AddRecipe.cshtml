@@ -18,7 +18,7 @@
 </div>
 
 @* Input Form*@
-<form asp-action="AddRecipe" asp-controller="Home" method="post">
+<form asp-action="AddRecipe" asp-controller="Recipe" method="post">
     <div class="row mb-3">
         <label asp-for="RecipeName" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
@@ -40,7 +40,7 @@
             <button type="submit" class="btn btn-primary">Add Recipe</button>
         </div>
         <div class="col-auto">
-            <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Cancel</a>
+            <a asp-action="Index" asp-controller="Recipe" class="btn btn-secondary">Cancel</a>
         </div>
     </div>
 </form>

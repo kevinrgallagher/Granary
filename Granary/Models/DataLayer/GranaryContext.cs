@@ -10,6 +10,7 @@ public class GranaryContext(DbContextOptions<GranaryContext> options) : DbContex
     public DbSet<Product> Products { get; set; } = null!;
     public DbSet<Recipe> Recipes { get; set; } = null!;
     public DbSet<Supplier> Suppliers { get; set; } = null!;
+    public DbSet<UnitType> UnitTypes { get; set; } = null!;
     public DbSet<Category> Categories { get; set; } = null!;
     public DbSet<RecipeProduct> RecipeIngredients { get; set; } = null!;
     public DbSet<InvoiceProduct> InvoiceProducts { get; set; } = null!;
@@ -25,5 +26,6 @@ public class GranaryContext(DbContextOptions<GranaryContext> options) : DbContex
         modelBuilder.ApplyConfiguration(new ConfigureInvoiceProducts());
         modelBuilder.ApplyConfiguration(new ConfigureRecipes());
         modelBuilder.ApplyConfiguration(new ConfigureRecipeProducts());
+        modelBuilder.ApplyConfiguration(new ConfigureUnitTypes());
     }
 }

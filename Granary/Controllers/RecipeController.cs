@@ -44,7 +44,7 @@ public class RecipeController(GranaryContext context) : Controller // Using new 
         }
 
         // If model state is invalid, redisplay the form with validation errors
-        return View("Recipe", recipe);
+        return View("AddRecipe", recipe);
     }
 }
 

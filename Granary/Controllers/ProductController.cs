@@ -15,11 +15,14 @@ public class ProductController(GranaryContext context) : Controller // Using new
     {
         var productList = context.Products
             .Include(p => p.Category)
+            .Include(p => p.UnitType)
             .Select(p => new ProductViewModel
             {
                 ProductId = p.ProductId,
                 Name = p.ProductName,
-                UnitType = p.UnitType,
+                UnitTypeId = p.UnitTypeId,
+                UnitTypeName = p.UnitType.Name,
+                UnitTypeAbbreviation = p.UnitType.Abbreviation,
                 StockQuantity = p.StockQuantity,
                 Description = p.Description,
                 CategoryId = p.CategoryId,
@@ -44,7 +47,8 @@ public class ProductController(GranaryContext context) : Controller // Using new
         var vm = new AddProductViewModel
         {
             Categories = new SelectList(context.Categories.ToList(), "CategoryId", "CategoryName"),
-            Suppliers = new SelectList(context.Suppliers.ToList(), "SupplierId", "SupplierName")
+            Suppliers = new SelectList(context.Suppliers.ToList(), "SupplierId", "SupplierName"),
+            UnitTypes = new SelectList(context.UnitTypes.ToList(), "UnitTypeId", "Name")
         };
         return View(vm);
     }
@@ -53,8 +57,7 @@ public class ProductController(GranaryContext context) : Controller // Using new
     [HttpGet]
     public IActionResult AddCategory()
     {
-        var recipes = context.Recipes.ToList();
-        return View(recipes);
+        return View();
     }
 
     // Form submission for adding a product
@@ -71,7 +74,31 @@ public class ProductController(GranaryContext context) : Controller // Using new
         // If invalid, re-populate the categories dropdown and return to the view
         vm.Categories = new SelectList(context.Categories.ToList(), "CategoryId", "CategoryName");
         vm.Suppliers = new SelectList(context.Suppliers.ToList(), "SupplierId", "SupplierName");
+        vm.UnitTypes = new SelectList(context.UnitTypes.ToList(), "UnitTypeId", "Name");
         return View(vm);
+    }
+
+    // Form submission for adding a category
+    [HttpPost]
+    public IActionResult AddCategory(Category category)
+    {
+        if (ModelState.IsValid)
+        {
+            var cat = new Category
+            {
+                CategoryId = category.CategoryId,
+                CategoryName = category.CategoryName,
+                Description = category.Description
+            };
+
+            context.Categories.Add(cat);
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        // If model state is invalid, redisplay the form with validation errors
+        return View("AddCategory", category);
     }
 }
 

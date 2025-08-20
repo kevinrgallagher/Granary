@@ -7,21 +7,24 @@ public class Product
 {
     public int ProductId { get; set; } // Primary key, foreign key to the three join tables
 
-    [Required]
+    [Required(ErrorMessage="Please enter the name of the product.")]
     public string ProductName { get; set; } = string.Empty;
 
-    [Range(1, int.MaxValue, ErrorMessage = "The Category field is required.")]
+    [Required]
+    [Range(1, int.MaxValue, ErrorMessage = "Please select a category.")]
     public int CategoryId { get; set; } // Foreign key to Category
 
-    [Range(1, int.MaxValue, ErrorMessage = "The Supplier field is required.")]
+    [Required]
+    [Range(1, int.MaxValue, ErrorMessage = "Please select a supplier.")]
     public int SupplierId { get; set; } // Foreign key to Supplier
+    
+    [Range(1, int.MaxValue, ErrorMessage = "Please select a unit type.")]
+    public int UnitTypeId { get; set; } // Foreign key to UnitType
 
     [Required]
-    public string UnitType { get; set; } = string.Empty;
-
+    [Range(0, 1000, ErrorMessage = "Stock quantity cannot exceed 1,000 units.")]
     public decimal StockQuantity { get; set; }
 
-    // Tag helper to set max length of string for description input
     [StringLength(30, ErrorMessage = "Description cannot exceed 30 characters.")]
     public string Description { get; set; } = string.Empty;
 
@@ -30,6 +33,7 @@ public class Product
     public ICollection<RecipeProduct>? RecipeProducts { get; set; } // Navigation property for RecipeProducts
 
     [ValidateNever]
-    public Category Category { get; set; } = null!; // Navigation property for Category, configured to be required
+    public Category Category { get; set; } = null!; // Navigation property for Category
+    public UnitType UnitType { get; set; } = default!; // Navigation property for UnitType
 
 }

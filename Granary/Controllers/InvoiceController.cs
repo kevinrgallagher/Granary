@@ -43,7 +43,7 @@ public class InvoiceController(GranaryContext context) : Controller // Using new
 
         // If invalid, re-populate the suppliers dropdown and return to the view
         vm.Suppliers = new SelectList(context.Suppliers.ToList(), "SupplierId", "SupplierName");
-        return View(vm);
+        return View("AddInvoice", vm);
     }
 }
 

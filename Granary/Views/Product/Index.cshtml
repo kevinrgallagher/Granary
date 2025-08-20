@@ -25,7 +25,6 @@
             <th>Name</th>
             <th>Category</th>
             <th class="pe-1">Description</th>
-            <th class="pe-4">Unit</th>
             <th>On-Hand</th>
             <th>Average Price</th>
             <th>Total Value</th>
@@ -39,9 +38,8 @@
                 <td>@product.Name</td>
                 <td>@product.CategoryName</td>
                 <td class="pe-1">@product.Description</td>
-                <td class="pe-4">@product.UnitType</td>
-                <td>@product.FormattedStockQuantity</td>
-                <td>@product.FormattedAverageUnitPrice</td>
+                <td class="pe-4">@product.FormattedStockWithUnitTypeAbbrev()</td>
+                <td>@product.FormattedUnitPriceWithUnitTypeAbbrev()</td>
                 <td>@product.FormattedTotalValue</td>
             </tr>
         }
@@ -50,5 +48,6 @@
 <div class="row">
 	<div class="col-md-12">
 		<a asp-action="AddProduct" asp-controller="Product" class="btn btn-primary">Add Product</a>
+		<a asp-action="AddCategory" asp-controller="Product" class="btn btn-secondary">Add Category</a>
 	</div>
 </div>

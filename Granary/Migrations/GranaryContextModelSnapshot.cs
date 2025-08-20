@@ -248,7 +248,8 @@ namespace Granary.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
@@ -260,15 +261,16 @@ namespace Granary.Migrations
                     b.Property<int>("SupplierId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UnitType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("UnitTypeId")
+                        .HasColumnType("int");
 
                     b.HasKey("ProductId");
 
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("SupplierId");
+
+                    b.HasIndex("UnitTypeId");
 
                     b.ToTable("Products");
 
@@ -281,7 +283,7 @@ namespace Granary.Migrations
                             ProductName = "Cherry Tomatoes",
                             StockQuantity = 100.00m,
                             SupplierId = 4,
-                            UnitType = "Pound"
+                            UnitTypeId = 1
                         },
                         new
                         {
@@ -291,7 +293,7 @@ namespace Granary.Migrations
                             ProductName = "Roma Tomatoes",
                             StockQuantity = 200.00m,
                             SupplierId = 4,
-                            UnitType = "Ounce"
+                            UnitTypeId = 2
                         },
                         new
                         {
@@ -301,7 +303,7 @@ namespace Granary.Migrations
                             ProductName = "Beefsteak Tomatoes",
                             StockQuantity = 150.00m,
                             SupplierId = 4,
-                            UnitType = "Ounce"
+                            UnitTypeId = 3
                         },
                         new
                         {
@@ -311,7 +313,7 @@ namespace Granary.Migrations
                             ProductName = "White Mushrooms",
                             StockQuantity = 80.00m,
                             SupplierId = 3,
-                            UnitType = "Each"
+                            UnitTypeId = 4
                         },
                         new
                         {
@@ -321,7 +323,7 @@ namespace Granary.Migrations
                             ProductName = "Portobello Mushrooms",
                             StockQuantity = 60.00m,
                             SupplierId = 3,
-                            UnitType = "Pound"
+                            UnitTypeId = 2
                         },
                         new
                         {
@@ -331,7 +333,7 @@ namespace Granary.Migrations
                             ProductName = "Shiitake Mushrooms",
                             StockQuantity = 300.00m,
                             SupplierId = 3,
-                            UnitType = "Each"
+                            UnitTypeId = 1
                         },
                         new
                         {
@@ -341,7 +343,7 @@ namespace Granary.Migrations
                             ProductName = "Yellow Onions",
                             StockQuantity = 500.00m,
                             SupplierId = 5,
-                            UnitType = "Pound"
+                            UnitTypeId = 3
                         },
                         new
                         {
@@ -351,7 +353,7 @@ namespace Granary.Migrations
                             ProductName = "Red Onions",
                             StockQuantity = 400.00m,
                             SupplierId = 5,
-                            UnitType = "Ounce"
+                            UnitTypeId = 2
                         },
                         new
                         {
@@ -361,7 +363,7 @@ namespace Granary.Migrations
                             ProductName = "Sweet Onions",
                             StockQuantity = 350.00m,
                             SupplierId = 5,
-                            UnitType = "Pound"
+                            UnitTypeId = 3
                         },
                         new
                         {
@@ -371,7 +373,7 @@ namespace Granary.Migrations
                             ProductName = "Sweet Onions",
                             StockQuantity = 50.00m,
                             SupplierId = 5,
-                            UnitType = "Each"
+                            UnitTypeId = 4
                         });
                 });
 
@@ -567,6 +569,62 @@ namespace Granary.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Granary.Models.DomainModels.UnitType", b =>
+                {
+                    b.Property<int>("UnitTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UnitTypeId"));
+
+                    b.Property<string>("Abbreviation")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("UnitTypeId");
+
+                    b.ToTable("UnitTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            UnitTypeId = 1,
+                            Abbreviation = "oz",
+                            IsActive = true,
+                            Name = "Ounce"
+                        },
+                        new
+                        {
+                            UnitTypeId = 2,
+                            Abbreviation = "lb",
+                            IsActive = true,
+                            Name = "Pound"
+                        },
+                        new
+                        {
+                            UnitTypeId = 3,
+                            Abbreviation = "gal",
+                            IsActive = true,
+                            Name = "Gallon"
+                        },
+                        new
+                        {
+                            UnitTypeId = 4,
+                            Abbreviation = "ea",
+                            IsActive = true,
+                            Name = "Each"
+                        });
+                });
+
             modelBuilder.Entity("Granary.Models.DomainModels.Invoice", b =>
                 {
                     b.HasOne("Granary.Models.DomainModels.Supplier", "Supplier")
@@ -611,9 +669,17 @@ namespace Granary.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Granary.Models.DomainModels.UnitType", "UnitType")
+                        .WithMany("Products")
+                        .HasForeignKey("UnitTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Category");
 
                     b.Navigation("Supplier");
+
+                    b.Navigation("UnitType");
                 });
 
             modelBuilder.Entity("Granary.Models.DomainModels.RecipeProduct", b =>
@@ -661,6 +727,11 @@ namespace Granary.Migrations
                 {
                     b.Navigation("Invoices");
 
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Granary.Models.DomainModels.UnitType", b =>
+                {
                     b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
