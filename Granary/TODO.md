@@ -26,7 +26,10 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [x] Modified invoice and addinvoice pages to show supplier name instead of id, a dropdown in case of addinvoice
 - [x] AddInvoice view should have a select list for suppliers
 - [x] Separate HomeController into separate controllers for each page
-- [ ] Continue work on UpdateInvoice view and functionality - add line items to invoices, update inventory, etc.
+- [ ] Continue work on UpdateInvoice view and functionality
+- [ ] Adding InvoiceProduct updates inventory
+- [ ] InvoiceProduct page should display product name and unit type
+- [ ] InvoiceProduct UI upgrades
 - [x] AddProduct view unit type selectlist should be populated somehow, not hard-coded, I think an enumerable
 - [x] AddProduct view unit type validation also needs to be updated, currently select list has selection by default
 - [ ] Add delete buttons, test cascade behaviors

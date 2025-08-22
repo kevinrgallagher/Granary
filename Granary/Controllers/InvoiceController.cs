@@ -39,7 +39,7 @@ public class InvoiceController(GranaryContext context) : Controller // Using new
             Invoice = context.Invoices
                 .Include(i => i.Supplier)
                 .FirstOrDefault(i => i.InvoiceId == id) ?? new Invoice(),
-            Products = new SelectList(context.Products.ToList(), "ProductId", "ProductName"),
+            Products = new SelectList(context.Products.ToList(), "ProductId", "ProductName")
         };
         
         return View(vm);        

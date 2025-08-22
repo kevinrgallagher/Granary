@@ -29,12 +29,10 @@ public class Product
     [StringLength(30, ErrorMessage = "Description cannot exceed 30 characters.")]
     public string Description { get; set; } = string.Empty;
 
-    public Supplier? Supplier { get; set; } // Navigation property for Suppliers
     public ICollection<InvoiceProduct> InvoiceProducts { get; set; } = new List<InvoiceProduct>(); // Navigation property for InvoiceProducts
     public ICollection<RecipeProduct>? RecipeProducts { get; set; } // Navigation property for RecipeProducts
 
-    [ValidateNever]
+    public Supplier? Supplier { get; set; } // Navigation property for Suppliers
     public Category Category { get; set; } = null!; // Navigation property for Category
     public UnitType UnitType { get; set; } = default!; // Navigation property for UnitType
-
 }
