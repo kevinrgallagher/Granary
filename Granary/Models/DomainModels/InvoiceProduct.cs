@@ -4,11 +4,13 @@ namespace Granary.Models.DomainModels;
 
 public class InvoiceProduct
 {
-    [Required]
-    public int InvoiceId { get; set; } // Composite key one, foreign key to Invoice
+    public int InvoiceProductId { get; set; } // Primary key for InvoiceProduct
 
     [Required]
-    public int ProductId { get; set; } // Composite key two, foreign key to Product
+    public int InvoiceId { get; set; } // Foreign key to Invoice
+
+    [Required]
+    public int ProductId { get; set; } // Foreign key to Product
 
     [Required]
     public decimal UnitPrice { get; set; } = 0.0m;

@@ -30,6 +30,37 @@ public class InvoiceController(GranaryContext context) : Controller // Using new
         return View(vm);
     }
 
+    // Navigate to AddInvoiceProduct page, populate the products dropdown
+    [HttpGet]
+    public IActionResult AddInvoiceProduct(int id)
+    {
+        var vm = new AddInvoiceProductViewModel
+        {
+            Invoice = context.Invoices
+                .Include(i => i.Supplier)
+                .FirstOrDefault(i => i.InvoiceId == id) ?? new Invoice(),
+            Products = new SelectList(context.Products.ToList(), "ProductId", "ProductName"),
+        };
+        
+        return View(vm);        
+    }
+
+    // Form submission for adding an invoice product
+    [HttpPost]
+    public IActionResult AddInvoiceProduct(AddInvoiceProductViewModel vm)
+    {
+        if (ModelState.IsValid)
+        {
+            context.InvoiceProducts.Add(vm.InvoiceProduct);
+            context.SaveChanges();
+            return RedirectToAction("Invoice");
+        }
+
+        // If invalid, re-populate the suppliers dropdown and return to the view
+        vm.Products = new SelectList(context.Products.ToList(), "ProductId", "ProductName");
+        return View("AddInvoiceProduct", vm);
+    }
+
     // Form submission for adding an invoice
     [HttpPost]
     public IActionResult AddInvoice(AddInvoiceViewModel vm)

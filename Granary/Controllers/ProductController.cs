@@ -34,7 +34,6 @@ public class ProductController(GranaryContext context) : Controller // Using new
                     .Take(5)
                     .Average() ?? 0m
             })
-            .AsNoTracking()
             .ToList();
 
         return View(productList);

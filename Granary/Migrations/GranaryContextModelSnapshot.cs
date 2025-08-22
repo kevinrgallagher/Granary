@@ -144,6 +144,12 @@ namespace Granary.Migrations
 
             modelBuilder.Entity("Granary.Models.DomainModels.InvoiceProduct", b =>
                 {
+                    b.Property<int>("InvoiceProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InvoiceProductId"));
+
                     b.Property<int>("InvoiceId")
                         .HasColumnType("int");
 
@@ -156,7 +162,9 @@ namespace Granary.Migrations
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("decimal(10, 2)");
 
-                    b.HasKey("InvoiceId", "ProductId");
+                    b.HasKey("InvoiceProductId");
+
+                    b.HasIndex("InvoiceId");
 
                     b.HasIndex("ProductId");
 
@@ -165,6 +173,7 @@ namespace Granary.Migrations
                     b.HasData(
                         new
                         {
+                            InvoiceProductId = 1,
                             InvoiceId = 1,
                             ProductId = 1,
                             Quantity = 25.00m,
@@ -172,6 +181,7 @@ namespace Granary.Migrations
                         },
                         new
                         {
+                            InvoiceProductId = 2,
                             InvoiceId = 1,
                             ProductId = 2,
                             Quantity = 15.00m,
@@ -179,6 +189,7 @@ namespace Granary.Migrations
                         },
                         new
                         {
+                            InvoiceProductId = 3,
                             InvoiceId = 2,
                             ProductId = 3,
                             Quantity = 40.00m,
@@ -186,6 +197,7 @@ namespace Granary.Migrations
                         },
                         new
                         {
+                            InvoiceProductId = 4,
                             InvoiceId = 2,
                             ProductId = 4,
                             Quantity = 20.00m,
@@ -193,6 +205,7 @@ namespace Granary.Migrations
                         },
                         new
                         {
+                            InvoiceProductId = 5,
                             InvoiceId = 3,
                             ProductId = 5,
                             Quantity = 10.00m,
@@ -200,6 +213,7 @@ namespace Granary.Migrations
                         },
                         new
                         {
+                            InvoiceProductId = 6,
                             InvoiceId = 3,
                             ProductId = 6,
                             Quantity = 12.00m,
@@ -207,6 +221,7 @@ namespace Granary.Migrations
                         },
                         new
                         {
+                            InvoiceProductId = 7,
                             InvoiceId = 4,
                             ProductId = 7,
                             Quantity = 18.00m,
@@ -214,6 +229,7 @@ namespace Granary.Migrations
                         },
                         new
                         {
+                            InvoiceProductId = 8,
                             InvoiceId = 4,
                             ProductId = 8,
                             Quantity = 22.00m,
@@ -221,6 +237,7 @@ namespace Granary.Migrations
                         },
                         new
                         {
+                            InvoiceProductId = 9,
                             InvoiceId = 5,
                             ProductId = 9,
                             Quantity = 50.00m,
@@ -228,6 +245,7 @@ namespace Granary.Migrations
                         },
                         new
                         {
+                            InvoiceProductId = 10,
                             InvoiceId = 5,
                             ProductId = 10,
                             Quantity = 30.00m,
@@ -590,9 +608,6 @@ namespace Granary.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.HasKey("UnitTypeId");
 
                     b.ToTable("UnitTypes");
@@ -603,32 +618,28 @@ namespace Granary.Migrations
                             UnitTypeId = 1,
                             Abbreviation = "oz",
                             IsActive = true,
-                            Name = "Ounce",
-                            ProductId = 0
+                            Name = "Ounce"
                         },
                         new
                         {
                             UnitTypeId = 2,
                             Abbreviation = "lb",
                             IsActive = true,
-                            Name = "Pound",
-                            ProductId = 0
+                            Name = "Pound"
                         },
                         new
                         {
                             UnitTypeId = 3,
                             Abbreviation = "gal",
                             IsActive = true,
-                            Name = "Gallon",
-                            ProductId = 0
+                            Name = "Gallon"
                         },
                         new
                         {
                             UnitTypeId = 4,
                             Abbreviation = "ea",
                             IsActive = true,
-                            Name = "Each",
-                            ProductId = 0
+                            Name = "Each"
                         });
                 });
 

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Granary.Migrations
 {
     /// <inheritdoc />
-    public partial class UnitTypeConfig : Migration
+    public partial class InvoiceProductIDAdded : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -63,7 +63,6 @@ namespace Granary.Migrations
                 {
                     UnitTypeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Abbreviation = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
@@ -102,10 +101,10 @@ namespace Granary.Migrations
                 {
                     ProductId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
                     SupplierId = table.Column<int>(type: "int", nullable: false),
                     UnitTypeId = table.Column<int>(type: "int", nullable: false),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
                     StockQuantity = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
                 },
@@ -136,6 +135,8 @@ namespace Granary.Migrations
                 name: "InvoiceProducts",
                 columns: table => new
                 {
+                    InvoiceProductId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     InvoiceId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
@@ -143,7 +144,7 @@ namespace Granary.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InvoiceProducts", x => new { x.InvoiceId, x.ProductId });
+                    table.PrimaryKey("PK_InvoiceProducts", x => x.InvoiceProductId);
                     table.ForeignKey(
                         name: "FK_InvoiceProducts_Invoices_InvoiceId",
                         column: x => x.InvoiceId,
@@ -218,13 +219,13 @@ namespace Granary.Migrations
 
             migrationBuilder.InsertData(
                 table: "UnitTypes",
-                columns: new[] { "UnitTypeId", "Abbreviation", "IsActive", "Name", "ProductId" },
+                columns: new[] { "UnitTypeId", "Abbreviation", "IsActive", "Name" },
                 values: new object[,]
                 {
-                    { 1, "oz", true, "Ounce", 0 },
-                    { 2, "lb", true, "Pound", 0 },
-                    { 3, "gal", true, "Gallon", 0 },
-                    { 4, "ea", true, "Each", 0 }
+                    { 1, "oz", true, "Ounce" },
+                    { 2, "lb", true, "Pound" },
+                    { 3, "gal", true, "Gallon" },
+                    { 4, "ea", true, "Each" }
                 });
 
             migrationBuilder.InsertData(
@@ -258,19 +259,19 @@ namespace Granary.Migrations
 
             migrationBuilder.InsertData(
                 table: "InvoiceProducts",
-                columns: new[] { "InvoiceId", "ProductId", "Quantity", "UnitPrice" },
+                columns: new[] { "InvoiceProductId", "InvoiceId", "ProductId", "Quantity", "UnitPrice" },
                 values: new object[,]
                 {
-                    { 1, 1, 25.00m, 2.99m },
-                    { 1, 2, 15.00m, 1.49m },
-                    { 2, 3, 40.00m, 1.25m },
-                    { 2, 4, 20.00m, 3.25m },
-                    { 3, 5, 10.00m, 1.99m },
-                    { 3, 6, 12.00m, 0.75m },
-                    { 4, 7, 18.00m, 1.49m },
-                    { 4, 8, 22.00m, 1.25m },
-                    { 5, 9, 50.00m, 0.89m },
-                    { 5, 10, 30.00m, 1.10m }
+                    { 1, 1, 1, 25.00m, 2.99m },
+                    { 2, 1, 2, 15.00m, 1.49m },
+                    { 3, 2, 3, 40.00m, 1.25m },
+                    { 4, 2, 4, 20.00m, 3.25m },
+                    { 5, 3, 5, 10.00m, 1.99m },
+                    { 6, 3, 6, 12.00m, 0.75m },
+                    { 7, 4, 7, 18.00m, 1.49m },
+                    { 8, 4, 8, 22.00m, 1.25m },
+                    { 9, 5, 9, 50.00m, 0.89m },
+                    { 10, 5, 10, 30.00m, 1.10m }
                 });
 
             migrationBuilder.InsertData(
@@ -288,6 +289,11 @@ namespace Granary.Migrations
                     { 7, 4, 1.0m },
                     { 8, 4, 1.0m }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InvoiceProducts_InvoiceId",
+                table: "InvoiceProducts",
+                column: "InvoiceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_InvoiceProducts_ProductId",

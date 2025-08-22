@@ -28,6 +28,7 @@
             <th>Invoice Date</th>
             <th>Due Date</th>
             <th>Status</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -40,6 +41,9 @@
                 <td>@invoice.InvoiceDate.ToString("MM/dd/yyyy")</td>
                 <td>@invoice.DueDate.ToString("MM/dd/yyyy")</td>
                 <td>@invoice.Status</td>
+                <td>
+                    <a asp-action="AddInvoiceProduct" asp-controller="Invoice" asp-route-id="@invoice.InvoiceId" class="btn btn-primary" method="post">Add Items</a>
+                </td>
             </tr>
         }
     </tbody>

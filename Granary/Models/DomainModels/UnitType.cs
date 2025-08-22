@@ -4,9 +4,7 @@ namespace Granary.Models.DomainModels;
 
 public class UnitType
 {
-    public int UnitTypeId { get; set; }
-
-    public int ProductId { get; set; } // Foreign key to Product
+    public int UnitTypeId { get; set; } // Primary key, foreign key to Product
 
     [Required, MaxLength(50)]
     public string Name { get; set; } = string.Empty;
