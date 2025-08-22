@@ -7,6 +7,7 @@ public class Invoice
     [Required]
     public int InvoiceId { get; set; } // Primary key, foreign key to InvoiceProduct
 
+    [Required]
     [Range(1, int.MaxValue, ErrorMessage = "The Supplier field is required.")]
     public int SupplierId { get; set; } // Foreign key to Supplier
 

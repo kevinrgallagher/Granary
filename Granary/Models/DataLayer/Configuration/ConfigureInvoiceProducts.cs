@@ -24,13 +24,8 @@ public class ConfigureInvoiceProducts : IEntityTypeConfiguration<InvoiceProduct>
               .IsRequired()
               .OnDelete(DeleteBehavior.Restrict);
 
-        // Configure decimal precision for quantity (e.g., 25.00)
-        entity.Property(ip => ip.Quantity)
-              .HasColumnType("decimal(10, 2)");
-
-        // Configure decimal precision for price at time of purchase (e.g., 2.99)
-        entity.Property(ip => ip.UnitPrice)
-              .HasColumnType("decimal(10, 2)");
+        entity.Property(ip => ip.UnitPrice).HasPrecision(18, 2);
+        entity.Property(ip => ip.Quantity).HasPrecision(18, 2);
 
         // Seed data
         entity.HasData(

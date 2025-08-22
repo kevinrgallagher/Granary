@@ -7,22 +7,18 @@ public class Product
 {
     public int ProductId { get; set; } // Primary key, foreign key to Product
 
-    [Required]
     [Range(1, int.MaxValue, ErrorMessage = "Please select a supplier.")]
     public int SupplierId { get; set; } // Foreign key to Supplier
 
-    [Required]
     [Range(1, int.MaxValue, ErrorMessage = "Please select a unit type.")]
     public int UnitTypeId { get; set; } // Foreign key to UnitType
 
     [Required(ErrorMessage="Please enter the name of the product.")]
     public string ProductName { get; set; } = string.Empty;
 
-    [Required]
     [Range(1, int.MaxValue, ErrorMessage = "Please select a category.")]
     public int CategoryId { get; set; } // Foreign key to Category
 
-    [Required]
     [Range(0, 1000, ErrorMessage = "Stock quantity cannot exceed 1,000 units.")]
     public decimal StockQuantity { get; set; }
 

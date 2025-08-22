@@ -7,17 +7,20 @@ namespace Granary.Models.ViewModels;
 public class AddInvoiceProductViewModel
 {
     public InvoiceProduct InvoiceProduct { get; set; } = new();
-    public int InvoiceProductId { get; set; } = new();
-    public decimal UnitPrice { get; set; } = new();
-    public decimal Quantity { get; set; } = new();
 
-    public Invoice Invoice { get; set; } = new();
-    public int ProductId { get; set; } = new();
+    public int InvoiceId { get; set; }
 
+    public int ProductId { get; set; }
+
+    public string InvoiceNumber { get; set; } = string.Empty;
+
+    public string SupplierName { get; set; } = string.Empty;
+
+    
     [BindNever]
     [ValidateNever]
     public SelectList Products { get; set; } = null!;
 
-    public decimal LineItemValue => UnitPrice * Quantity;
+    public decimal LineItemValue => InvoiceProduct.UnitPrice * InvoiceProduct.Quantity;
 
 }

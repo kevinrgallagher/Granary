@@ -4,19 +4,20 @@ namespace Granary.Models.DomainModels;
 
 public class InvoiceProduct
 {
-    public int InvoiceProductId { get; set; } // Primary key for InvoiceProduct
+    public int InvoiceProductId { get; set; }
 
-    [Required]
-    public int InvoiceId { get; set; } // Foreign key to Invoice
+    [Range(1, int.MaxValue, ErrorMessage = "InvoiceId missing.")]
+    public int InvoiceId { get; set; }
 
-    [Required]
-    public int ProductId { get; set; } // Foreign key to Product
+    [Range(1, int.MaxValue, ErrorMessage = "Please select a product.")]
+    public int ProductId { get; set; }
 
-    [Required]
-    public decimal UnitPrice { get; set; } = 0.0m;
+    [Range(0.01, 1000, ErrorMessage = "Please enter a unit price.")]
+    public decimal UnitPrice { get; set; }
 
+    [Range(0.01, 1000, ErrorMessage = "Please enter a quantity.")]
     public decimal Quantity { get; set; }
 
-    public Invoice Invoice { get; set; } = null!; // Navigation property for Invoice
-    public Product Product { get; set; } = null!; // Navigation property for Product
+    public Invoice Invoice { get; set; } = null!;
+    public Product Product { get; set; } = null!;
 }

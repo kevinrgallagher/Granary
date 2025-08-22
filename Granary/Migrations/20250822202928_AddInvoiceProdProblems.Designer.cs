@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Granary.Migrations
 {
     [DbContext(typeof(GranaryContext))]
-    [Migration("20250822181938_Testing")]
-    partial class Testing
+    [Migration("20250822202928_AddInvoiceProdProblems")]
+    partial class AddInvoiceProdProblems
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -160,10 +160,12 @@ namespace Granary.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Quantity")
-                        .HasColumnType("decimal(10, 2)");
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(10, 2)");
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("InvoiceProductId");
 

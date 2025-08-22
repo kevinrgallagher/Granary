@@ -34,15 +34,32 @@ public class InvoiceController(GranaryContext context) : Controller // Using new
     [HttpGet]
     public IActionResult AddInvoiceProduct(int id)
     {
+        var invoiceNumber = context.Invoices
+            .Where(i => i.InvoiceId == id)
+            .Select(i => i.InvoiceNumber)
+            .FirstOrDefault();
+
+        string supplierName = context.Invoices
+            .Where(i => i.InvoiceId == id)
+            .Select(i => i.Supplier != null ? i.Supplier.SupplierName : "Unknown Supplier")
+            .FirstOrDefault() ?? "Unknown Supplier";
+
         var vm = new AddInvoiceProductViewModel
         {
-            Invoice = context.Invoices
-                .Include(i => i.Supplier)
-                .FirstOrDefault(i => i.InvoiceId == id) ?? new Invoice(),
+            InvoiceProduct = new InvoiceProduct
+            {
+                InvoiceId = id,
+                ProductId = 0, // Default to no product selected
+                UnitPrice = 0.0m,
+                Quantity = 0.0m,
+            },
+            SupplierName = supplierName,
+            InvoiceNumber = invoiceNumber ?? string.Empty,
             Products = new SelectList(context.Products.ToList(), "ProductId", "ProductName")
         };
-        
-        return View(vm);        
+
+        vm.Products = new SelectList(context.Products.ToList(), "ProductId", "ProductName");
+        return View(vm);
     }
 
     // Form submission for adding an invoice product
@@ -53,12 +70,12 @@ public class InvoiceController(GranaryContext context) : Controller // Using new
         {
             context.InvoiceProducts.Add(vm.InvoiceProduct);
             context.SaveChanges();
-            return RedirectToAction("Invoice");
+            return RedirectToAction("Index");
         }
 
-        // If invalid, re-populate the suppliers dropdown and return to the view
+        // If invalid, re-populate product dropdown
         vm.Products = new SelectList(context.Products.ToList(), "ProductId", "ProductName");
-        return View("AddInvoiceProduct", vm);
+        return View(vm);
     }
 
     // Form submission for adding an invoice
