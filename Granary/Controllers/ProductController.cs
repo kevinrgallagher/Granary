@@ -29,7 +29,7 @@ public class ProductController(GranaryContext context) : Controller // Using new
                 CategoryName = p.Category.CategoryName,
                 // Average of most recent five unit prices from associated invoice lines
                 AverageUnitPrice = p.InvoiceProducts
-                    .OrderByDescending(ip => ip.Invoice.InvoiceDate)
+                    .OrderByDescending(ip => ip.Invoice!.InvoiceDate)
                     .Select(ip => (decimal?)ip.UnitPrice) // cast so Average() works on empty
                     .Take(5)
                     .Average() ?? 0m

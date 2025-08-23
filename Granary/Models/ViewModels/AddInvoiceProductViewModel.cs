@@ -1,24 +1,24 @@
 using Granary.Models.DomainModels;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Granary.Models.ViewModels;
 public class AddInvoiceProductViewModel
 {
     public InvoiceProduct InvoiceProduct { get; set; } = new();
 
-    public int InvoiceId { get; set; }
+    [BindNever, ValidateNever]
+    public Invoice Invoice { get; set; } = new();
 
-    public int ProductId { get; set; }
-
-    public string InvoiceNumber { get; set; } = string.Empty;
-
-    public string SupplierName { get; set; } = string.Empty;
-
-    
-    [BindNever]
     [ValidateNever]
+    public string? SupplierName { get; set; } = "No supplier found.";
+
+    [ValidateNever]
+    public string? InvoiceNumber { get; set; } = "No invoice found.";
+
+    [BindNever, ValidateNever]
     public SelectList Products { get; set; } = null!;
 
     public decimal LineItemValue => InvoiceProduct.UnitPrice * InvoiceProduct.Quantity;

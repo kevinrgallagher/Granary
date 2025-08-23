@@ -32,33 +32,30 @@ public class InvoiceController(GranaryContext context) : Controller // Using new
 
     // Navigate to AddInvoiceProduct page, populate the products dropdown
     [HttpGet]
-    public IActionResult AddInvoiceProduct(int id)
+    public IActionResult AddInvoiceProduct(int id) // id = InvoiceId
     {
-        var invoiceNumber = context.Invoices
-            .Where(i => i.InvoiceId == id)
-            .Select(i => i.InvoiceNumber)
-            .FirstOrDefault();
+        var invoice = context.Invoices
+            .Include(i => i.Supplier)
+            .FirstOrDefault(i => i.InvoiceId == id);
+        if (invoice == null) return NotFound();
 
-        string supplierName = context.Invoices
-            .Where(i => i.InvoiceId == id)
-            .Select(i => i.Supplier != null ? i.Supplier.SupplierName : "Unknown Supplier")
-            .FirstOrDefault() ?? "Unknown Supplier";
+        var items = context.Products
+            .OrderBy(p => p.ProductName)
+            .Select(p => new SelectListItem
+            {
+                Value = p.ProductId.ToString(),
+                Text = p.ProductName + " (" + p.UnitType.Abbreviation + ")"   // <-- concatenate here
+            })
+            .ToList();
 
         var vm = new AddInvoiceProductViewModel
         {
-            InvoiceProduct = new InvoiceProduct
-            {
-                InvoiceId = id,
-                ProductId = 0, // Default to no product selected
-                UnitPrice = 0.0m,
-                Quantity = 0.0m,
-            },
-            SupplierName = supplierName,
-            InvoiceNumber = invoiceNumber ?? string.Empty,
-            Products = new SelectList(context.Products.ToList(), "ProductId", "ProductName")
+            Invoice = invoice,
+            // Pre-set the FK so the hidden field has a value
+            InvoiceProduct = new InvoiceProduct { InvoiceId = id },
+            Products = new SelectList(items, "Value", "Text")
         };
 
-        vm.Products = new SelectList(context.Products.ToList(), "ProductId", "ProductName");
         return View(vm);
     }
 
@@ -68,30 +65,38 @@ public class InvoiceController(GranaryContext context) : Controller // Using new
     {
         if (ModelState.IsValid)
         {
+
             context.InvoiceProducts.Add(vm.InvoiceProduct);
             context.SaveChanges();
             return RedirectToAction("Index");
         }
+              
+        // Rebuild list
+        var items = context.Products
+            .OrderBy(p => p.ProductName)
+            .Select(p => new SelectListItem
+            {
+                Value = p.ProductId.ToString(),
+                Text = p.ProductName + " (" + p.UnitType.Abbreviation + ")"
+            })
+            .ToList();
 
-        // If invalid, re-populate product dropdown
-        vm.Products = new SelectList(context.Products.ToList(), "ProductId", "ProductName");
+
+        var invId = vm?.InvoiceProduct?.InvoiceId ?? 0;
+        vm!.Invoice = context.Invoices
+            .Include(i => i.Supplier)
+            .FirstOrDefault(i => i.InvoiceId == vm.InvoiceProduct.InvoiceId) ?? new Invoice();
+
+        var selectedProductId = vm?.InvoiceProduct?.ProductId;
+        vm!.Products = new SelectList(items, "Value", "Text", selectedProductId);
+        vm.SupplierName = context.Invoices
+            .Include(i => i.Supplier)
+            .Where(i => i.InvoiceId == invId)
+            .Select(i => i.Supplier != null ? i.Supplier.SupplierName : null)
+            .FirstOrDefault()
+            ?? "Unknown Supplier";
+
         return View(vm);
-    }
-
-    // Form submission for adding an invoice
-    [HttpPost]
-    public IActionResult AddInvoice(AddInvoiceViewModel vm)
-    {
-        if (ModelState.IsValid)
-        {
-            context.Invoices.Add(vm.Invoice);
-            context.SaveChanges();
-            return RedirectToAction("Invoice");
-        }
-
-        // If invalid, re-populate the suppliers dropdown and return to the view
-        vm.Suppliers = new SelectList(context.Suppliers.ToList(), "SupplierId", "SupplierName");
-        return View("AddInvoice", vm);
     }
 }
 

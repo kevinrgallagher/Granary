@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 
 namespace Granary.Models.DomainModels;
@@ -18,6 +19,9 @@ public class InvoiceProduct
     [Range(0.01, 1000, ErrorMessage = "Please enter a quantity.")]
     public decimal Quantity { get; set; }
 
-    public Invoice Invoice { get; set; } = null!;
-    public Product Product { get; set; } = null!;
+    [ValidateNever]
+    public Invoice? Invoice { get; set; } = null!;
+
+    [ValidateNever]
+    public Product? Product { get; set; } = null!;
 }

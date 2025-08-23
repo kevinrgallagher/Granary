@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Granary.Migrations
 {
     [DbContext(typeof(GranaryContext))]
-    [Migration("20250822202928_AddInvoiceProdProblems")]
-    partial class AddInvoiceProdProblems
+    [Migration("20250823181103_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

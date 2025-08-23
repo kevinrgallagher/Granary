@@ -28,9 +28,13 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [x] Separate HomeController into separate controllers for each page
 - [x] New migration - can proceed
 - [ ] Continue work on UpdateInvoice view and functionality
-- [ ] Bug with adding invoiceproducts, need to check model state, not adding or validating properly
+- [x] Bug with adding invoiceproducts, need to check model state, not adding or validating properly
+- [ ] Resolved bug, but need to review the changes made to fix it - maybe cleaner solution exists
+- [ ] AddInvoiceProduct select list for products should be filtered by supplier of the invoice
+- [ ] AddInvoiceProduct view should list invoice products at bottom of page
+- [ ] Should return to AddInvoiceProduct view after adding product, not back to invoice list
 - [ ] Adding InvoiceProduct updates inventory
-- [ ] InvoiceProduct page should display product name and unit type
+- [x] InvoiceProduct page should display product name and unit type
 - [ ] InvoiceProduct UI upgrades
 - [x] AddProduct view unit type selectlist should be populated somehow, not hard-coded, I think an enumerable
 - [x] AddProduct view unit type validation also needs to be updated, currently select list has selection by default
