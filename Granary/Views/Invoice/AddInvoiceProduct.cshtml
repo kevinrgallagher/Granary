@@ -15,9 +15,9 @@
 
 @* Heading *@
 <div class="row mb-2">
-    <h5>Update Invoice Number: @Model.Invoice.InvoiceNumber</h5>
     <p>InvoiceId: @Model.InvoiceProduct.InvoiceId</p>
-    <p>Supplier: @Model.Invoice?.Supplier?.SupplierName</p>
+    <p>Invoice Number: @Model.Invoice.InvoiceNumber</p>
+    <p>Supplier: @Model.Invoice.Supplier?.SupplierName</p>
 </div>
 
 @* PRODUCT SHOULD BE A DROPDOWN SELECTLIST WITH AUTOFILL *@

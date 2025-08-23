@@ -34,20 +34,24 @@ public class InvoiceController(GranaryContext context) : Controller // Using new
     [HttpGet]
     public IActionResult AddInvoiceProduct(int id) // id = InvoiceId
     {
+        // Get the invoice and include supplier details
         var invoice = context.Invoices
             .Include(i => i.Supplier)
             .FirstOrDefault(i => i.InvoiceId == id);
         if (invoice == null) return NotFound();
 
+        // Get products, filtered by supplier, and create a formatted list of SelectListItems
         var items = context.Products
+            .Where(p => p.SupplierId == invoice.SupplierId)
             .OrderBy(p => p.ProductName)
             .Select(p => new SelectListItem
             {
                 Value = p.ProductId.ToString(),
-                Text = p.ProductName + " (" + p.UnitType.Abbreviation + ")"   // <-- concatenate here
+                Text = p.ProductName + " (" + p.UnitType.Abbreviation + ")"
             })
             .ToList();
 
+        // Create view model, project the invoice, create a new invoice product, and populate the dropdown
         var vm = new AddInvoiceProductViewModel
         {
             Invoice = invoice,
@@ -56,6 +60,7 @@ public class InvoiceController(GranaryContext context) : Controller // Using new
             Products = new SelectList(items, "Value", "Text")
         };
 
+        // Return the view model to the view
         return View(vm);
     }
 

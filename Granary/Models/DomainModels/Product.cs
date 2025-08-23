@@ -1,5 +1,6 @@
-using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace Granary.Models.DomainModels;
 
@@ -29,6 +30,7 @@ public class Product
     public ICollection<RecipeProduct>? RecipeProducts { get; set; } // Navigation property for RecipeProducts
 
     public Supplier? Supplier { get; set; } // Navigation property for Suppliers
-    public Category Category { get; set; } = null!; // Navigation property for Category
-    public UnitType UnitType { get; set; } = default!; // Navigation property for UnitType
+
+    [BindNever, ValidateNever] public Category Category { get; set; } = null!; // Navigation property for Category
+    [BindNever, ValidateNever] public UnitType UnitType { get; set; } = default!; // Navigation property for UnitType
 }

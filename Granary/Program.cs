@@ -1,8 +1,14 @@
-using Microsoft.EntityFrameworkCore;
 using Granary.Models;
 using Granary.Models.DataLayer;
+using Microsoft.EntityFrameworkCore;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// EF Core logging hook (Program.cs or similar)
+builder.Logging.AddConsole();
+builder.Services.AddDbContext<GranaryContext>(o =>
+    o.UseSqlServer("GranaryContext").EnableSensitiveDataLogging());
 
 // Register GranaryContext with SQL server and connection string
 builder.Services.AddDbContext<GranaryContext>(options =>

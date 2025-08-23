@@ -27,10 +27,16 @@ This means minimum load time, miniumum barrier-to-entry, and minimum data entry
 - [x] AddInvoice view should have a select list for suppliers
 - [x] Separate HomeController into separate controllers for each page
 - [x] New migration - can proceed
-- [ ] Continue work on UpdateInvoice view and functionality
+- [ ] Category and UnitType are failing validation on clicking 'Add New Product' on the 'AddProduct' page
+- [ ] Continue work on UpdateInvoice view and 
+- [x...] Practice LINQ queries, they seem foreign but they're just SQL really
+- [x...] Continue
+- [ ] You need data structures 101
 - [x] Bug with adding invoiceproducts, need to check model state, not adding or validating properly
+- [x] The problem was having Invoice object in the AddInvoiceProduct viewmodel, validation was failing for Invoice model
 - [ ] Resolved bug, but need to review the changes made to fix it - maybe cleaner solution exists
-- [ ] AddInvoiceProduct select list for products should be filtered by supplier of the invoice
+- [ ] Suggestion - add comments until you understand it all
+- [x] AddInvoiceProduct select list for products should be filtered by supplier of the invoice
 - [ ] AddInvoiceProduct view should list invoice products at bottom of page
 - [ ] Should return to AddInvoiceProduct view after adding product, not back to invoice list
 - [ ] Adding InvoiceProduct updates inventory

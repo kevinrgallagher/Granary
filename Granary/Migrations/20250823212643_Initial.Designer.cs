@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Granary.Migrations
 {
     [DbContext(typeof(GranaryContext))]
-    [Migration("20250823181103_Initial")]
+    [Migration("20250823212643_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
